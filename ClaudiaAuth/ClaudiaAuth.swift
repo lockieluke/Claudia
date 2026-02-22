@@ -104,7 +104,7 @@ public struct ClaudiaAuth {
         }
     }
     
-    public static func resolveSessionKeyFromGoogleAuth(code: String) async -> String? {
+    public static func resolveSessionKeyFromGoogleAuth(code: String) async {
         struct VerifyGoogleParam: Encodable {
             let code: String
             let locale: String = "en-US"
@@ -132,14 +132,12 @@ public struct ClaudiaAuth {
                     for cookie in cookies {
                         if cookie.name == "sessionKey" {
                             logger.info("Resolved session cookie: \(cookie.value, privacy: .private(mask: .hash))")
-                            return cookie.value
+                            return
                         }
                     }
                 }
             }
         }
-        
-        return nil
     }
     
 }
