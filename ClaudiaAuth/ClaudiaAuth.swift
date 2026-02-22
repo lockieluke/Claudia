@@ -16,7 +16,7 @@ import os
 
 private let logger = Logger(subsystem: "me.lockie.Claudia.Auth", category: "ClaudiaAuth")
 
-public struct ClaudiaAuth {
+public struct Auth {
     
     private static var wkAuthUiDelegate: WKAuthUIDelegate?
     private static var wkAuthNavigationDelegate: WKAuthNavigationDelegate?

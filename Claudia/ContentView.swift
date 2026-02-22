@@ -16,8 +16,8 @@ struct ContentView: View {
         VStack {
         }
         .task {
-            let code = await ClaudiaAuth.startGoogleAuthFlow()
-            await ClaudiaAuth.resolveSessionKeyFromGoogleAuth(code: code)
+            let code = await Auth.startGoogleAuthFlow()
+            await Auth.resolveSessionKeyFromGoogleAuth(code: code)
         }
         .padding()
         .enableInjection()
