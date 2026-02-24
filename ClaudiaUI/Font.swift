@@ -9,6 +9,8 @@ import SwiftUI
 
 extension Font {
     
-    static let accent = Font.custom("Anthropic Serif Web Text", size: 12)
+    static func claudeFont(size: CGFloat) -> Font {
+        Font.custom("Anthropic Serif Web Text", size: size)
+    }
     
 }

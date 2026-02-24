@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B774A9582F4E1A3300C1162D /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = B774A9572F4E1A3300C1162D /* SwiftUIIntrospect */; };
+		B774A95C2F4E225000C1162D /* SwiftyUtils in Frameworks */ = {isa = PBXBuildFile; productRef = B774A95B2F4E225000C1162D /* SwiftyUtils */; };
+		B774A95E2F4E259600C1162D /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = B774A95D2F4E259600C1162D /* Defaults */; };
 		B7E62AD22F4A2F8F00C71BA8 /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = B7E62AD12F4A2F8F00C71BA8 /* Inject */; };
 		B7E62ADE2F4A316700C71BA8 /* ClaudiaAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E62AD82F4A316700C71BA8 /* ClaudiaAuth.framework */; };
 		B7E62ADF2F4A316700C71BA8 /* ClaudiaAuth.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B7E62AD82F4A316700C71BA8 /* ClaudiaAuth.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -17,6 +20,11 @@
 		B7E62AFE2F4A725D00C71BA8 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = B7E62AFD2F4A725D00C71BA8 /* Alamofire */; };
 		B7E62B012F4A732C00C71BA8 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = B7E62B002F4A732C00C71BA8 /* SwiftyJSON */; };
 		B7E62B052F4A7E6A00C71BA8 /* ClaudiaAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E62AEE2F4A713100C71BA8 /* ClaudiaAPI.framework */; };
+		B7E62B2A2F4B2B5C00C71BA8 /* ClaudiaUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E62B242F4B2B5C00C71BA8 /* ClaudiaUI.framework */; };
+		B7E62B2B2F4B2B5C00C71BA8 /* ClaudiaUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B7E62B242F4B2B5C00C71BA8 /* ClaudiaUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B7E62B342F4B2BFB00C71BA8 /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = B7E62B332F4B2BFB00C71BA8 /* Inject */; };
+		B7F77D862F4D35A600BAB622 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = B7F77D852F4D35A600BAB622 /* SFSafeSymbols */; };
+		B7F77D8F2F4D3A3700BAB622 /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = B7F77D8E2F4D3A3700BAB622 /* Defaults */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +49,13 @@
 			remoteGlobalIDString = B7E62AED2F4A713100C71BA8;
 			remoteInfo = ClaudiaAPI;
 		};
+		B7E62B282F4B2B5C00C71BA8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B7E62ABA2F4A2F2E00C71BA8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B7E62B232F4B2B5C00C71BA8;
+			remoteInfo = ClaudiaUI;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -50,10 +65,20 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				B7E62B2B2F4B2B5C00C71BA8 /* ClaudiaUI.framework in Embed Frameworks */,
 				B7E62ADF2F4A316700C71BA8 /* ClaudiaAuth.framework in Embed Frameworks */,
 				B7E62AF52F4A713100C71BA8 /* ClaudiaAPI.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B7F77D7F2F4D320B00BAB622 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Fonts;
+			dstSubfolderSpec = 7;
+			files = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -62,11 +87,37 @@
 		B7E62AC22F4A2F2E00C71BA8 /* Claudia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Claudia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7E62AD82F4A316700C71BA8 /* ClaudiaAuth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ClaudiaAuth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7E62AEE2F4A713100C71BA8 /* ClaudiaAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ClaudiaAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B7E62B242F4B2B5C00C71BA8 /* ClaudiaUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ClaudiaUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		B7E62B182F4A8BB700C71BA8 /* Exceptions for "Claudia" folder in "Claudia" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+				Resources/ClaudeFont.ttf,
+			);
+			target = B7E62AC12F4A2F2E00C71BA8 /* Claudia */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		B7F77D802F4D321700BAB622 /* Exceptions for "Claudia" folder in "Copy Files" phase from "Claudia" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = B7F77D7F2F4D320B00BAB622 /* CopyFiles */;
+			membershipExceptions = (
+				Resources/ClaudeFont.ttf,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		B7E62AC42F4A2F2E00C71BA8 /* Claudia */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				B7E62B182F4A8BB700C71BA8 /* Exceptions for "Claudia" folder in "Claudia" target */,
+				B7F77D802F4D321700BAB622 /* Exceptions for "Claudia" folder in "Copy Files" phase from "Claudia" target */,
+			);
 			path = Claudia;
 			sourceTree = "<group>";
 		};
@@ -80,6 +131,11 @@
 			path = ClaudiaAPI;
 			sourceTree = "<group>";
 		};
+		B7E62B252F4B2B5C00C71BA8 /* ClaudiaUI */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ClaudiaUI;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,9 +143,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7E62B2A2F4B2B5C00C71BA8 /* ClaudiaUI.framework in Frameworks */,
 				B7E62ADE2F4A316700C71BA8 /* ClaudiaAuth.framework in Frameworks */,
 				B7E62AD22F4A2F8F00C71BA8 /* Inject in Frameworks */,
+				B774A9582F4E1A3300C1162D /* SwiftUIIntrospect in Frameworks */,
 				B7E62AF42F4A713100C71BA8 /* ClaudiaAPI.framework in Frameworks */,
+				B7F77D8F2F4D3A3700BAB622 /* Defaults in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,6 +160,7 @@
 				B7E62B052F4A7E6A00C71BA8 /* ClaudiaAPI.framework in Frameworks */,
 				B7E62AE62F4A385F00C71BA8 /* SwiftyUtils in Frameworks */,
 				B7E62AFE2F4A725D00C71BA8 /* Alamofire in Frameworks */,
+				B774A95E2F4E259600C1162D /* Defaults in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,7 +168,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B774A95C2F4E225000C1162D /* SwiftyUtils in Frameworks */,
 				B7E62AFB2F4A715400C71BA8 /* Alamofire in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B7E62B212F4B2B5C00C71BA8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B7F77D862F4D35A600BAB622 /* SFSafeSymbols in Frameworks */,
+				B7E62B342F4B2BFB00C71BA8 /* Inject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,6 +191,7 @@
 				B7E62AC42F4A2F2E00C71BA8 /* Claudia */,
 				B7E62AD92F4A316700C71BA8 /* ClaudiaAuth */,
 				B7E62AEF2F4A713100C71BA8 /* ClaudiaAPI */,
+				B7E62B252F4B2B5C00C71BA8 /* ClaudiaUI */,
 				B7E62AFC2F4A725D00C71BA8 /* Frameworks */,
 				B7E62AC32F4A2F2E00C71BA8 /* Products */,
 			);
@@ -132,6 +203,7 @@
 				B7E62AC22F4A2F2E00C71BA8 /* Claudia.app */,
 				B7E62AD82F4A316700C71BA8 /* ClaudiaAuth.framework */,
 				B7E62AEE2F4A713100C71BA8 /* ClaudiaAPI.framework */,
+				B7E62B242F4B2B5C00C71BA8 /* ClaudiaUI.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -160,6 +232,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B7E62B1F2F4B2B5C00C71BA8 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -170,6 +249,7 @@
 				B7E62ABE2F4A2F2E00C71BA8 /* Sources */,
 				B7E62ABF2F4A2F2E00C71BA8 /* Frameworks */,
 				B7E62AC02F4A2F2E00C71BA8 /* Resources */,
+				B7F77D7F2F4D320B00BAB622 /* CopyFiles */,
 				B7E62AE32F4A316700C71BA8 /* Embed Frameworks */,
 			);
 			buildRules = (
@@ -177,6 +257,7 @@
 			dependencies = (
 				B7E62ADD2F4A316700C71BA8 /* PBXTargetDependency */,
 				B7E62AF32F4A713100C71BA8 /* PBXTargetDependency */,
+				B7E62B292F4B2B5C00C71BA8 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				B7E62AC42F4A2F2E00C71BA8 /* Claudia */,
@@ -184,6 +265,8 @@
 			name = Claudia;
 			packageProductDependencies = (
 				B7E62AD12F4A2F8F00C71BA8 /* Inject */,
+				B7F77D8E2F4D3A3700BAB622 /* Defaults */,
+				B774A9572F4E1A3300C1162D /* SwiftUIIntrospect */,
 			);
 			productName = Claudia;
 			productReference = B7E62AC22F4A2F2E00C71BA8 /* Claudia.app */;
@@ -211,6 +294,7 @@
 				B7E62AE52F4A385F00C71BA8 /* SwiftyUtils */,
 				B7E62AFD2F4A725D00C71BA8 /* Alamofire */,
 				B7E62B002F4A732C00C71BA8 /* SwiftyJSON */,
+				B774A95D2F4E259600C1162D /* Defaults */,
 			);
 			productName = ClaudiaAuth;
 			productReference = B7E62AD82F4A316700C71BA8 /* ClaudiaAuth.framework */;
@@ -235,9 +319,35 @@
 			name = ClaudiaAPI;
 			packageProductDependencies = (
 				B7E62AFA2F4A715400C71BA8 /* Alamofire */,
+				B774A95B2F4E225000C1162D /* SwiftyUtils */,
 			);
 			productName = ClaudiaAPI;
 			productReference = B7E62AEE2F4A713100C71BA8 /* ClaudiaAPI.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		B7E62B232F4B2B5C00C71BA8 /* ClaudiaUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B7E62B2C2F4B2B5C00C71BA8 /* Build configuration list for PBXNativeTarget "ClaudiaUI" */;
+			buildPhases = (
+				B7E62B1F2F4B2B5C00C71BA8 /* Headers */,
+				B7E62B202F4B2B5C00C71BA8 /* Sources */,
+				B7E62B212F4B2B5C00C71BA8 /* Frameworks */,
+				B7E62B222F4B2B5C00C71BA8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				B7E62B252F4B2B5C00C71BA8 /* ClaudiaUI */,
+			);
+			name = ClaudiaUI;
+			packageProductDependencies = (
+				B7E62B332F4B2BFB00C71BA8 /* Inject */,
+				B7F77D852F4D35A600BAB622 /* SFSafeSymbols */,
+			);
+			productName = ClaudiaUI;
+			productReference = B7E62B242F4B2B5C00C71BA8 /* ClaudiaUI.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -259,6 +369,9 @@
 					B7E62AED2F4A713100C71BA8 = {
 						CreatedOnToolsVersion = 26.2;
 					};
+					B7E62B232F4B2B5C00C71BA8 = {
+						CreatedOnToolsVersion = 26.2;
+					};
 				};
 			};
 			buildConfigurationList = B7E62ABD2F4A2F2E00C71BA8 /* Build configuration list for PBXProject "Claudia" */;
@@ -275,6 +388,9 @@
 				B7E62AE42F4A385F00C71BA8 /* XCRemoteSwiftPackageReference "SwiftyUtils" */,
 				B7E62AF92F4A715400C71BA8 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				B7E62AFF2F4A732C00C71BA8 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				B7F77D842F4D35A600BAB622 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
+				B7F77D8D2F4D3A3700BAB622 /* XCRemoteSwiftPackageReference "Defaults" */,
+				B774A9562F4E1A3300C1162D /* XCRemoteSwiftPackageReference "swiftui-introspect" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B7E62AC32F4A2F2E00C71BA8 /* Products */;
@@ -284,6 +400,7 @@
 				B7E62AC12F4A2F2E00C71BA8 /* Claudia */,
 				B7E62AD72F4A316700C71BA8 /* ClaudiaAuth */,
 				B7E62AED2F4A713100C71BA8 /* ClaudiaAPI */,
+				B7E62B232F4B2B5C00C71BA8 /* ClaudiaUI */,
 			);
 		};
 /* End PBXProject section */
@@ -304,6 +421,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		B7E62AEC2F4A713100C71BA8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B7E62B222F4B2B5C00C71BA8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -334,6 +458,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B7E62B202F4B2B5C00C71BA8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -351,6 +482,11 @@
 			isa = PBXTargetDependency;
 			target = B7E62AED2F4A713100C71BA8 /* ClaudiaAPI */;
 			targetProxy = B7E62B072F4A7E6A00C71BA8 /* PBXContainerItemProxy */;
+		};
+		B7E62B292F4B2B5C00C71BA8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B7E62B232F4B2B5C00C71BA8 /* ClaudiaUI */;
+			targetProxy = B7E62B282F4B2B5C00C71BA8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -502,11 +638,13 @@
 				ENABLE_RESOURCE_ACCESS_USB = NO;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Claudia/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"-Xlinker",
@@ -555,11 +693,13 @@
 				ENABLE_RESOURCE_ACCESS_USB = NO;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Claudia/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = me.lockie.Claudia;
@@ -594,6 +734,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
@@ -632,6 +773,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
@@ -670,6 +812,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
@@ -708,10 +851,89 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				PRODUCT_BUNDLE_IDENTIFIER = me.lockie.Claudia.API;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_MODULE = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		B7E62B2D2F4B2B5C00C71BA8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 727YJTPFCL;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = me.lockie.Claudia.UI;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_MODULE = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		B7E62B2E2F4B2B5C00C71BA8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 727YJTPFCL;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = me.lockie.Claudia.UI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -765,9 +987,26 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		B7E62B2C2F4B2B5C00C71BA8 /* Build configuration list for PBXNativeTarget "ClaudiaUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B7E62B2D2F4B2B5C00C71BA8 /* Debug */,
+				B7E62B2E2F4B2B5C00C71BA8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B774A9562F4E1A3300C1162D /* XCRemoteSwiftPackageReference "swiftui-introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/swiftui-introspect.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 26.0.0;
+			};
+		};
 		B7E62AD02F4A2F8F00C71BA8 /* XCRemoteSwiftPackageReference "Inject" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/krzysztofzablocki/Inject.git";
@@ -800,9 +1039,40 @@
 				minimumVersion = 5.0.2;
 			};
 		};
+		B7F77D842F4D35A600BAB622 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SFSafeSymbols/SFSafeSymbols.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+		B7F77D8D2F4D3A3700BAB622 /* XCRemoteSwiftPackageReference "Defaults" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/Defaults.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.6;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B774A9572F4E1A3300C1162D /* SwiftUIIntrospect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B774A9562F4E1A3300C1162D /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
+			productName = SwiftUIIntrospect;
+		};
+		B774A95B2F4E225000C1162D /* SwiftyUtils */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B7E62AE42F4A385F00C71BA8 /* XCRemoteSwiftPackageReference "SwiftyUtils" */;
+			productName = SwiftyUtils;
+		};
+		B774A95D2F4E259600C1162D /* Defaults */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B7F77D8D2F4D3A3700BAB622 /* XCRemoteSwiftPackageReference "Defaults" */;
+			productName = Defaults;
+		};
 		B7E62AD12F4A2F8F00C71BA8 /* Inject */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B7E62AD02F4A2F8F00C71BA8 /* XCRemoteSwiftPackageReference "Inject" */;
@@ -827,6 +1097,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B7E62AFF2F4A732C00C71BA8 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
 			productName = SwiftyJSON;
+		};
+		B7E62B332F4B2BFB00C71BA8 /* Inject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B7E62AD02F4A2F8F00C71BA8 /* XCRemoteSwiftPackageReference "Inject" */;
+			productName = Inject;
+		};
+		B7F77D852F4D35A600BAB622 /* SFSafeSymbols */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B7F77D842F4D35A600BAB622 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
+			productName = SFSafeSymbols;
+		};
+		B7F77D8E2F4D3A3700BAB622 /* Defaults */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B7F77D8D2F4D3A3700BAB622 /* XCRemoteSwiftPackageReference "Defaults" */;
+			productName = Defaults;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

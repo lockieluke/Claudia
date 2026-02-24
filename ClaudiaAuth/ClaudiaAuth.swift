@@ -7,6 +7,7 @@
 
 import Foundation
 internal import Alamofire
+internal import Defaults
 import ClaudiaAPI
 import AppKit
 import WebKit
@@ -126,6 +127,15 @@ public struct Auth {
             let account = json["account"]
             if let uuid = account["uuid"].string, let email = account["email_address"].string {
                 logger.info("Resolved account: \(email) (\(uuid))")
+                
+                if let activeMembership = account["memberships"].arrayValue.first(where: { $0["organization"]["capabilities"].arrayValue.contains("chat") }) {
+                    let activeOrganisation = activeMembership["organization"]
+                    if let orgId = activeOrganisation["uuid"].string {
+                        logger.info("Resolved active organization: \(orgId)")
+                        Defaults[Defaults.Key("lastOrgId")] = orgId
+                    }
+                }
+                
                 if let headers = response.response?.allHeaderFields as? [String: String],
                    let url = response.response?.url {
                     let cookies = HTTPCookie.cookies(withResponseHeaderFields: headers, for: url)
