@@ -144,7 +144,7 @@ public struct Auth {
         guard let claudeURL = URL(string: "https://claude.ai") else { return false }
         
         let cookies = HTTPCookieStorage.shared.cookies(for: claudeURL) ?? []
-        if let sessionCookie = cookies.first(where: { $0.name == "sessionKey" }) {
+        if let sessionCookie = cookies.first(where: { $0.name == "sessionKey" }), sessionCookie.expiresDate ?? Date() > Date() {
             logger.info("Found existing session cookie: \(sessionCookie.value, privacy: .private(mask: .hash))")
             return true
         }
