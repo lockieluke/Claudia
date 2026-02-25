@@ -51,6 +51,7 @@ public struct ConversationView: View {
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 20)
             }
+            .defaultScrollAnchor(.bottom)
             .transparentScrollbars()
             
             MessageBox(models: availableModels, placeholder: "Reply...")
