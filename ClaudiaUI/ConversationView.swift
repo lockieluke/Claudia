@@ -15,15 +15,17 @@ public struct ConversationView: View {
     
     private let conversation: ClaudeConversation
     private let availableModels: [String]
-    private let onImageTap: (URL, String) -> Void
+    private let onImageTap: (URL, String, String) -> Void
+    private let imageNamespace: Namespace.ID
     
     private var messages: [ClaudeMessage] {
         conversation.chatMessages ?? []
     }
     
-    public init(conversation: ClaudeConversation, models: [String], onImageTap: @escaping (URL, String) -> Void) {
+    public init(conversation: ClaudeConversation, models: [String], imageNamespace: Namespace.ID, onImageTap: @escaping (URL, String, String) -> Void) {
         self.conversation = conversation
         self.availableModels = models
+        self.imageNamespace = imageNamespace
         self.onImageTap = onImageTap
     }
     
@@ -36,7 +38,12 @@ public struct ConversationView: View {
                 LazyVStack(spacing: 25) {
                     ForEach(messages, id: \.uuid) { message in
                         let isLastMessage = message.uuid == messages.last?.uuid
-                        MessageBubble(message: message, showSparkle: isLastMessage && message.sender == "assistant", onImageTap: onImageTap)
+                        MessageBubble(
+                            message: message,
+                            showSparkle: isLastMessage && message.sender == "assistant",
+                            imageNamespace: imageNamespace,
+                            onImageTap: onImageTap
+                        )
                     }
                 }
                 .padding(.horizontal, 40)
@@ -67,7 +74,8 @@ struct MessageBubble: View {
     
     let message: ClaudeMessage
     let showSparkle: Bool
-    let onImageTap: (URL, String) -> Void
+    let imageNamespace: Namespace.ID
+    let onImageTap: (URL, String, String) -> Void
     
     private var isHuman: Bool {
         message.sender == "human"
@@ -95,7 +103,7 @@ struct MessageBubble: View {
                 if hasImages {
                     HStack(spacing: 8) {
                         ForEach(message.imageFiles, id: \.uuid) { file in
-                            MessageImageView(file: file, onTap: onImageTap)
+                            MessageImageView(file: file, namespace: imageNamespace, onTap: onImageTap)
                         }
                     }
                 }

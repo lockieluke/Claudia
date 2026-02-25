@@ -12,24 +12,29 @@ import SDWebImage
 internal import UniformTypeIdentifiers
 
 /// Fullscreen overlay for viewing an image with a dark backdrop.
-/// Shows the image centered, the filename below, and a close button in the top-right corner.
+/// The image transitions from its thumbnail position using matchedGeometryEffect.
 public struct ImageOverlayView: View {
     
     let imageURL: URL
     let fileName: String
+    let imageID: String
+    let namespace: Namespace.ID
     let onDismiss: () -> Void
     
-    public init(imageURL: URL, fileName: String, onDismiss: @escaping () -> Void) {
+    public init(imageURL: URL, fileName: String, imageID: String, namespace: Namespace.ID, onDismiss: @escaping () -> Void) {
         self.imageURL = imageURL
         self.fileName = fileName
+        self.imageID = imageID
+        self.namespace = namespace
         self.onDismiss = onDismiss
     }
     
     public var body: some View {
         ZStack {
-            // Dark backdrop
+            // Dark backdrop — fades in independently
             Color.black.opacity(0.85)
                 .ignoresSafeArea()
+                .transition(.opacity)
                 .onTapGesture {
                     onDismiss()
                 }
@@ -40,12 +45,14 @@ public struct ImageOverlayView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                 } placeholder: {
-                    ProgressView()
-                        .scaleEffect(0.8)
+                    // Keep same shape as the final image during load
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.gray.opacity(0.3))
                 }
                 .frame(maxWidth: 800, maxHeight: 600)
                 .cornerRadius(8)
                 .shadow(radius: 20)
+                .matchedGeometryEffect(id: imageID, in: namespace)
                 .contextMenu {
                     Button("Copy Image") {
                         copyImage()
@@ -58,6 +65,7 @@ public struct ImageOverlayView: View {
                 Text(fileName)
                     .font(.sansFont(size: 13))
                     .foregroundStyle(.white.opacity(0.7))
+                    .transition(.opacity)
             }
             
             // Close button top-right
@@ -77,6 +85,7 @@ public struct ImageOverlayView: View {
                 }
                 Spacer()
             }
+            .transition(.opacity)
         }
         .focusable(false)
         .onKeyPress(.escape) {

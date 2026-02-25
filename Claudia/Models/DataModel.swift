@@ -13,6 +13,8 @@ import ClaudiaAPI
 struct ImageOverlayState {
     let imageURL: URL
     let fileName: String
+    /// Stable ID matching the `matchedGeometryEffect` id on the source thumbnail.
+    let imageID: String
 }
 
 class DataModel: ObservableObject {

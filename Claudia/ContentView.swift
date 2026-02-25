@@ -20,6 +20,8 @@ struct ContentView: View {
     @Default(.sidebarOpened) private var sidebarOpened
     @State private var showSidebar = Defaults[.sidebarOpened]
     
+    @Namespace private var imageNamespace
+    
     @ObserveInjection var inject
     
     var body: some View {
@@ -86,9 +88,9 @@ struct ContentView: View {
             }
             
             if let activeConversation = dataModel.activeConversation {
-                ConversationView(conversation: activeConversation, models: ["Sonnet 4.6", "Haiku 4.6", "Opus 4.6"]) { imageURL, fileName in
+                ConversationView(conversation: activeConversation, models: ["Sonnet 4.6", "Haiku 4.6", "Opus 4.6"], imageNamespace: imageNamespace) { imageURL, fileName, imageID in
                     withAnimation(.interactiveSpring) {
-                        dataModel.imageOverlay = ImageOverlayState(imageURL: imageURL, fileName: fileName)
+                        dataModel.imageOverlay = ImageOverlayState(imageURL: imageURL, fileName: fileName, imageID: imageID)
                     }
                 }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -116,12 +118,16 @@ struct ContentView: View {
         }
         .overlay {
             if let overlayState = dataModel.imageOverlay {
-                ImageOverlayView(imageURL: overlayState.imageURL, fileName: overlayState.fileName) {
+                ImageOverlayView(
+                    imageURL: overlayState.imageURL,
+                    fileName: overlayState.fileName,
+                    imageID: overlayState.imageID,
+                    namespace: imageNamespace
+                ) {
                     withAnimation(.interactiveSpring) {
                         dataModel.imageOverlay = nil
                     }
                 }
-                .transition(.opacity)
                 .zIndex(100)
             }
         }

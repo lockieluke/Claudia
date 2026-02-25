@@ -14,10 +14,12 @@ import ClaudiaAPI
 public struct MessageImageView: View {
     
     private let file: ClaudeFile
-    private let onTap: (URL, String) -> Void
+    private let namespace: Namespace.ID
+    private let onTap: (URL, String, String) -> Void
     
-    public init(file: ClaudeFile, onTap: @escaping (URL, String) -> Void) {
+    public init(file: ClaudeFile, namespace: Namespace.ID, onTap: @escaping (URL, String, String) -> Void) {
         self.file = file
+        self.namespace = namespace
         self.onTap = onTap
     }
     
@@ -29,13 +31,6 @@ public struct MessageImageView: View {
     private var previewURL: URL? {
         guard let path = file.previewUrl else { return nil }
         return URL(string: "https://claude.ai\(path)")
-    }
-    
-    private var aspectRatio: CGFloat {
-        guard let w = file.thumbnailAsset?.imageWidth, let h = file.thumbnailAsset?.imageHeight, h > 0 else {
-            return 16.0 / 9.0
-        }
-        return CGFloat(w) / CGFloat(h)
     }
     
     public var body: some View {
@@ -54,9 +49,10 @@ public struct MessageImageView: View {
         .frame(maxWidth: 200, maxHeight: 150)
         .clipped()
         .cornerRadius(8)
+        .matchedGeometryEffect(id: file.uuid, in: namespace)
         .onTapGesture {
             if let url = previewURL ?? thumbnailURL {
-                onTap(url, file.fileName)
+                onTap(url, file.fileName, file.uuid)
             }
         }
         .cursor(.pointingHand)
