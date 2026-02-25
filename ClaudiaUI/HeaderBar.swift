@@ -25,7 +25,7 @@ public struct HeaderBar: View {
     }
     
     public var body: some View {
-        HStack {
+        HStack(spacing: 6) {
             Spacer()
                 .frame(width: inFullscreen ? 20 : 85)
             NavControls(systemSymbol: .sidebarLeading, onPress: {

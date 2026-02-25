@@ -93,7 +93,17 @@ struct ContentView: View {
                         dataModel.imageOverlay = ImageOverlayState(imageURL: imageURL, fileName: fileName, imageID: imageID)
                     }
                 }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .overlay(alignment: .topLeading) {
+                    Text(activeConversation.name)
+                        .font(.sansFont(size: 15))
+                        .tracking(0.1)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                        .padding(.vertical, 19)
+                        .padding(.leading, showSidebar ? 20 : (navigationModel.isFullscreen ? 130 : 200))
+                        .allowsHitTesting(false)
+                }
             } else {
                 NewChatView(name: dataModel.user?.displayName) {
                     MessageBox(models: ["Sonnet 4.6", "Haiku 4.6", "Opus 4.6"])
