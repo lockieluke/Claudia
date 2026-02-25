@@ -11,5 +11,6 @@ import ClaudiaAPI
 class DataModel: ObservableObject {
     
     @Published var conversations: [ClaudeConversation] = []
+    @Published var user: ClaudeAccount?
     
 }

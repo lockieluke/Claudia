@@ -53,7 +53,9 @@ struct ContentView: View {
                 }
                 .transition(.move(edge: .leading))
             }
-            Spacer()
+            
+            NewChatView(name: dataModel.user?.displayName)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .overlay {
@@ -78,10 +80,14 @@ struct ContentView: View {
             self.api.organisationId = Defaults[.lastOrganisationId]
             
             do {
-                let conversations = try await self.api.getConversations()
+                async let accountProc = try await self.api.getAccount()
+                async let conversationsProc = try await self.api.getConversations()
+                
+                let (account, conversations) = try await (accountProc, conversationsProc)
+                self.dataModel.user = account
                 self.dataModel.conversations = conversations
             } catch {
-                print("Failed to fetch conversations: \(error)")
+                print("Failed to fetch initial data: \(error.localizedDescription)")
             }
         }
         .ignoresSafeArea()

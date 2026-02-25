@@ -7,7 +7,6 @@
 
 import Foundation
 import Combine
-import KeyedCodable
 import SwiftUI
 internal import Alamofire
 internal import SwiftyUtils
@@ -44,6 +43,10 @@ public class API: ObservableObject {
     
     static func orgRequest<T: Decodable>(_ endpoint: String, _ orgId: String, method: HTTPMethod = .get, parameters: Parameters? = nil, headers: HTTPHeaders? = nil) async throws -> T {
         try await self.request("/organizations/\(orgId)/\(endpoint)", method: method, parameters: parameters, headers: headers)
+    }
+    
+    public func getAccount() async throws -> ClaudeAccount {
+        try await API.request("/account")
     }
     
     public func getConversations(starred: Bool = false, limit: Int = 30, consistency: String = "strong") async throws -> [ClaudeConversation] {
