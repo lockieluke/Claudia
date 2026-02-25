@@ -34,25 +34,28 @@ public struct ConversationView: View {
             Spacer()
                 .frame(height: 50)
             
-            ScrollView(.vertical) {
-                LazyVStack(spacing: 25) {
-                    ForEach(messages, id: \.uuid) { message in
-                        let isLastMessage = message.uuid == messages.last?.uuid
-                        MessageBubble(
-                            message: message,
-                            showSparkle: isLastMessage && message.sender == "assistant",
-                            imageNamespace: imageNamespace,
-                            onImageTap: onImageTap
-                        )
+            GeometryReader { geometry in
+                ScrollView(.vertical) {
+                    LazyVStack(spacing: 25) {
+                        ForEach(messages, id: \.uuid) { message in
+                            let isLastMessage = message.uuid == messages.last?.uuid
+                            MessageBubble(
+                                message: message,
+                                showSparkle: isLastMessage && message.sender == "assistant",
+                                imageNamespace: imageNamespace,
+                                onImageTap: onImageTap
+                            )
+                        }
                     }
+                    .padding(.horizontal, 40)
+                    .frame(maxWidth: 800)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 20)
+                    .frame(minHeight: geometry.size.height, alignment: .top)
                 }
-                .padding(.horizontal, 40)
-                .frame(maxWidth: 800)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 20)
+                .defaultScrollAnchor(.bottom)
+                .transparentScrollbars()
             }
-            .defaultScrollAnchor(.bottom)
-            .transparentScrollbars()
             
             MessageBox(models: availableModels, placeholder: "Reply...")
                 .padding(.all.subtracting(.top), 30)
