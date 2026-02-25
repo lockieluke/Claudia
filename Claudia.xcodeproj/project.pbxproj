@@ -12,6 +12,7 @@
 		B774A95E2F4E259600C1162D /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = B774A95D2F4E259600C1162D /* Defaults */; };
 		B7DEB88F2F4F220E00152398 /* SVGView in Frameworks */ = {isa = PBXBuildFile; productRef = B7DEB88E2F4F220E00152398 /* SVGView */; };
 		B7DEB8D72F4F41D100152398 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = B7DEB8D62F4F41D100152398 /* SwiftUIIntrospect */; };
+		B7DEBA512F4F808500152398 /* SwiftUIMath in Frameworks */ = {isa = PBXBuildFile; productRef = B7DEBA502F4F808500152398 /* SwiftUIMath */; };
 		B7E62AD22F4A2F8F00C71BA8 /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = B7E62AD12F4A2F8F00C71BA8 /* Inject */; };
 		B7E62ADE2F4A316700C71BA8 /* ClaudiaAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E62AD82F4A316700C71BA8 /* ClaudiaAuth.framework */; };
 		B7E62ADF2F4A316700C71BA8 /* ClaudiaAuth.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B7E62AD82F4A316700C71BA8 /* ClaudiaAuth.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -185,6 +186,7 @@
 				B7F77D862F4D35A600BAB622 /* SFSafeSymbols in Frameworks */,
 				B7E62B342F4B2BFB00C71BA8 /* Inject in Frameworks */,
 				B7DEB8D72F4F41D100152398 /* SwiftUIIntrospect in Frameworks */,
+				B7DEBA512F4F808500152398 /* SwiftUIMath in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,6 +355,7 @@
 				B7F77D852F4D35A600BAB622 /* SFSafeSymbols */,
 				B7DEB88E2F4F220E00152398 /* SVGView */,
 				B7DEB8D62F4F41D100152398 /* SwiftUIIntrospect */,
+				B7DEBA502F4F808500152398 /* SwiftUIMath */,
 			);
 			productName = ClaudiaUI;
 			productReference = B7E62B242F4B2B5C00C71BA8 /* ClaudiaUI.framework */;
@@ -400,6 +403,7 @@
 				B7F77D8D2F4D3A3700BAB622 /* XCRemoteSwiftPackageReference "Defaults" */,
 				B774A9562F4E1A3300C1162D /* XCRemoteSwiftPackageReference "swiftui-introspect" */,
 				B7DEB88D2F4F220E00152398 /* XCRemoteSwiftPackageReference "SVGView" */,
+				B7DEBA4F2F4F808500152398 /* XCRemoteSwiftPackageReference "swiftui-math" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B7E62AC32F4A2F2E00C71BA8 /* Products */;
@@ -554,7 +558,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.7;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -612,7 +616,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.7;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -653,7 +657,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"-Xlinker",
@@ -708,7 +712,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = me.lockie.Claudia;
@@ -743,7 +747,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
@@ -782,7 +786,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
@@ -821,7 +825,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
@@ -860,7 +864,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
@@ -899,7 +903,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
@@ -938,7 +942,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
@@ -1024,6 +1028,14 @@
 				minimumVersion = 1.0.6;
 			};
 		};
+		B7DEBA4F2F4F808500152398 /* XCRemoteSwiftPackageReference "swiftui-math" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gonzalezreal/swiftui-math";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
 		B7E62AD02F4A2F8F00C71BA8 /* XCRemoteSwiftPackageReference "Inject" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/krzysztofzablocki/Inject.git";
@@ -1099,6 +1111,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B774A9562F4E1A3300C1162D /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
 			productName = SwiftUIIntrospect;
+		};
+		B7DEBA502F4F808500152398 /* SwiftUIMath */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B7DEBA4F2F4F808500152398 /* XCRemoteSwiftPackageReference "swiftui-math" */;
+			productName = SwiftUIMath;
 		};
 		B7E62AD12F4A2F8F00C71BA8 /* Inject */ = {
 			isa = XCSwiftPackageProductDependency;

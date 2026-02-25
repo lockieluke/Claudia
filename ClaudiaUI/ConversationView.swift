@@ -88,10 +88,7 @@ struct MessageBubble: View {
                                 .fill(colorScheme == .dark ? Color(hex: "#141412") : Color(hex: "EFEFEE"))
                         }
                 } else {
-                    Text(displayText)
-                        .font(.serifFont(size: displaySize))
-                        .lineSpacing(displayLineSpacing)
-                        .textSelection(.enabled)
+                    MarkdownLatexView(displayText, fontSize: displaySize)
                 }
                 
                 if showSparkle {
