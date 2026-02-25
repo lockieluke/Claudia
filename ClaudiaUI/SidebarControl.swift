@@ -40,11 +40,11 @@ public struct SidebarControl: View {
         }
         .frame(maxWidth: .infinity)
         .frame(height: 30)
-        .onHover { isHovering in
-            self.isHovering = isHovering
-        }
         .onTapGesture {
             self.onPress?()
+        }
+        .onHover { isHovering in
+            self.isHovering = isHovering
         }
         .gesture(
             DragGesture(minimumDistance: 0)
