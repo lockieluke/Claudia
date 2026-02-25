@@ -47,13 +47,16 @@ public struct ConversationView: View {
                     }
                 }
                 .padding(.horizontal, 40)
+                .frame(maxWidth: 800)
+                .frame(maxWidth: .infinity)
                 .padding(.vertical, 20)
             }
             .transparentScrollbars()
             
             MessageBox(models: availableModels, placeholder: "Reply...")
+                .frame(maxWidth: 800)
+                .frame(maxWidth: .infinity)
         }
-        .frame(maxWidth: 800)
         .enableInjection()
     }
 }
