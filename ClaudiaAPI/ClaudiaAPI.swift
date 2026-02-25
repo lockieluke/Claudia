@@ -14,7 +14,16 @@ internal import SwiftyUtils
 public class API: ObservableObject {
    
     private static let ClaudeAF = Session(configuration: URLSessionConfiguration.default.then { configuration in
-        // TODO: Configure Claude Desktop headers
+        configuration.httpAdditionalHeaders = [
+            "anthropic-client-app": "com.anthropic.claudefordesktop",
+            "anthropic-client-os-platform": "darwin",
+            "anthropic-client-os-version": "\(ProcessInfo.processInfo.operatingSystemVersion.majorVersion).\(ProcessInfo.processInfo.operatingSystemVersion.minorVersion).\(ProcessInfo.processInfo.operatingSystemVersion.patchVersion)",
+            "anthropic-client-platform": "desktop_app",
+            "anthropic-client-version": APIConstants.desktopAppVersion,
+            "anthropic-desktop-topbar": 1,
+            "Priority": "u=1, i",
+            "User-Agent": APIConstants.desktopAppUA
+        ]
     })
     private static let BASE_URL = "https://claude.ai/api"
     
