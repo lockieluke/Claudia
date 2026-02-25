@@ -82,9 +82,14 @@ struct ContentView: View {
             }
             self.api.organisationId = Defaults[.lastOrganisationId]
             
+            guard self.api.organisationId != nil else {
+                print("Failed to fetch initial data: missing organisation ID")
+                return
+            }
+            
             do {
-                async let accountProc = try await self.api.getAccount()
-                async let conversationsProc = try await self.api.getConversations()
+                async let accountProc = self.api.getAccount()
+                async let conversationsProc = self.api.getConversations()
                 
                 let (account, conversations) = try await (accountProc, conversationsProc)
                 self.dataModel.user = account
