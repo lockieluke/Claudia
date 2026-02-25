@@ -14,6 +14,7 @@
 		B7DEB8D72F4F41D100152398 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = B7DEB8D62F4F41D100152398 /* SwiftUIIntrospect */; };
 		B7DEBA512F4F808500152398 /* SwiftUIMath in Frameworks */ = {isa = PBXBuildFile; productRef = B7DEBA502F4F808500152398 /* SwiftUIMath */; };
 		B7DEBAD82F4F882C00152398 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = B7DEBAD72F4F882C00152398 /* SDWebImageSwiftUI */; };
+		B7DEBAD92F4FA2A100152398 /* ClaudiaAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E62AEE2F4A713100C71BA8 /* ClaudiaAPI.framework */; };
 		B7E62AD22F4A2F8F00C71BA8 /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = B7E62AD12F4A2F8F00C71BA8 /* Inject */; };
 		B7E62ADE2F4A316700C71BA8 /* ClaudiaAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E62AD82F4A316700C71BA8 /* ClaudiaAuth.framework */; };
 		B7E62ADF2F4A316700C71BA8 /* ClaudiaAuth.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B7E62AD82F4A316700C71BA8 /* ClaudiaAuth.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -32,6 +33,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		B7DEBADB2F4FA2A100152398 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B7E62ABA2F4A2F2E00C71BA8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B7E62AED2F4A713100C71BA8;
+			remoteInfo = ClaudiaAPI;
+		};
 		B7E62ADC2F4A316700C71BA8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B7E62ABA2F4A2F2E00C71BA8 /* Project object */;
@@ -183,6 +191,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7DEBAD92F4FA2A100152398 /* ClaudiaAPI.framework in Frameworks */,
 				B7DEBAD82F4F882C00152398 /* SDWebImageSwiftUI in Frameworks */,
 				B7DEB88F2F4F220E00152398 /* SVGView in Frameworks */,
 				B7F77D862F4D35A600BAB622 /* SFSafeSymbols in Frameworks */,
@@ -347,6 +356,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				B7DEBADC2F4FA2A100152398 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				B7E62B252F4B2B5C00C71BA8 /* ClaudiaUI */,
@@ -485,6 +495,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		B7DEBADC2F4FA2A100152398 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B7E62AED2F4A713100C71BA8 /* ClaudiaAPI */;
+			targetProxy = B7DEBADB2F4FA2A100152398 /* PBXContainerItemProxy */;
+		};
 		B7E62ADD2F4A316700C71BA8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = B7E62AD72F4A316700C71BA8 /* ClaudiaAuth */;
