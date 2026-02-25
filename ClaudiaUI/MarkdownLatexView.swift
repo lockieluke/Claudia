@@ -293,7 +293,6 @@ public struct MarkdownLatexView: View {
                                         .mathRenderingMode(.monochrome)
                                         .foregroundStyle(colorScheme == .dark ? .white : .black)
                                         .padding(.horizontal, 4)
-                                        .drawingGroup()
                                 }
                             }
                         }
@@ -304,7 +303,6 @@ public struct MarkdownLatexView: View {
                         .mathTypesettingStyle(.display)
                         .mathRenderingMode(.monochrome)
                         .foregroundStyle(colorScheme == .dark ? .white : .black)
-                        .drawingGroup()
                         .frame(maxWidth: .infinity, alignment: .center)
                         .padding(.vertical, 4)
                 }
