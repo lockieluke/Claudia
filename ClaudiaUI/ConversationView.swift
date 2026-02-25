@@ -46,7 +46,7 @@ public struct ConversationView: View {
             
             MessageBox(models: availableModels, placeholder: "Reply...")
         }
-        .frame(maxWidth: 700)
+        .frame(maxWidth: 800)
         .enableInjection()
     }
 }

@@ -51,6 +51,7 @@ public struct NewChatView<Content: View>: View {
             
             content
         }
+        .frame(maxWidth: 700)
         .enableInjection()
     }
 }

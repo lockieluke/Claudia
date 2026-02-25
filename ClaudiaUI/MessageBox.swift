@@ -70,7 +70,6 @@ public struct MessageBox: View {
             }
             .padding()
         }
-        .frame(maxWidth: 700)
         .background {
             RoundedRectangle(cornerRadius: messageBoxRadius)
                 .fill(colorScheme == .dark ? Color(hex: "30302E") : .white)
