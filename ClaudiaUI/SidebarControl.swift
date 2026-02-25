@@ -16,10 +16,12 @@ public struct SidebarControl: View {
     
     private let label: String
     private let icon: SFSymbol
+    private var onPress: (() -> Void)?
     
-    public init(_ label: String, icon: SFSymbol) {
+    public init(_ label: String, icon: SFSymbol, onPress: (() -> Void)? = nil) {
         self.label = label
         self.icon = icon
+        self.onPress = onPress
     }
     
     public var body: some View {
@@ -40,6 +42,9 @@ public struct SidebarControl: View {
         .frame(height: 30)
         .onHover { isHovering in
             self.isHovering = isHovering
+        }
+        .onTapGesture {
+            self.onPress?()
         }
         .gesture(
             DragGesture(minimumDistance: 0)
