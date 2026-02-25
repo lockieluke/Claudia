@@ -41,6 +41,8 @@ struct SelectableTextView: NSViewRepresentable {
     
     let attributedString: NSAttributedString
     
+    func makeCoordinator() -> Coordinator { Coordinator() }
+    
     func makeNSView(context: Context) -> AutoSizingTextView {
         let textView = AutoSizingTextView()
         textView.isEditable = false
@@ -54,6 +56,7 @@ struct SelectableTextView: NSViewRepresentable {
         textView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         textView.setContentHuggingPriority(.required, for: .vertical)
         textView.isAutomaticLinkDetectionEnabled = false
+        textView.delegate = context.coordinator
         
         textView.textStorage?.setAttributedString(attributedString)
         textView.invalidateIntrinsicContentSize()
@@ -77,6 +80,16 @@ struct SelectableTextView: NSViewRepresentable {
         layoutManager.ensureLayout(for: container)
         let usedRect = layoutManager.usedRect(for: container)
         return CGSize(width: width, height: usedRect.height + textView.textContainerInset.height * 2)
+    }
+    
+    // MARK: - Coordinator
+    
+    final class Coordinator: NSObject, NSTextViewDelegate {
+        func textView(_ textView: NSTextView, clickedOnLink link: Any, at charIndex: Int) -> Bool {
+            guard let url = (link as? URL) ?? (link as? NSURL)?.absoluteURL else { return false }
+            confirmOpen(url: url, in: textView.window)
+            return true
+        }
     }
 }
 

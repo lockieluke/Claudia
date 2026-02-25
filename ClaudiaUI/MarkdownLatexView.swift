@@ -103,6 +103,7 @@ public struct MarkdownLatexView: View {
                                 Text(LocalizedStringKey(md))
                                     .font(.serifFont(size: fontSize))
                                     .textSelection(.enabled)
+                                    .confirmExternalLinks()
                             case .math(let tex):
                                 Math(tex)
                                     .mathFont(Math.Font(name: .latinModern, size: fontSize))
