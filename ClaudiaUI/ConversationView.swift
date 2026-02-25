@@ -76,7 +76,10 @@ struct MessageBubble: View, Equatable {
     }
     
     private var displayText: String {
-        message.content.first?.text ?? message.text
+        // Concatenate all text-type content blocks (skips tool_use, tool_result, etc.)
+        let textParts = message.content.compactMap { $0.type == "text" ? $0.text : nil }
+        let joined = textParts.joined(separator: "\n\n")
+        return joined.isEmpty ? message.text : joined
     }
     
     var body: some View {
