@@ -15,11 +15,13 @@ public struct ConversationRow: View {
     @State private var isClicking = false
     
     private let label: String
+    private let isActive: Bool
     private var onPress: (() -> Void)?
     private var onHoverStart: (() -> Void)?
     
-    public init(_ label: String, onHoverStart: (() -> Void)? = nil, onPress: (() -> Void)? = nil) {
+    public init(_ label: String, isActive: Bool = false, onHoverStart: (() -> Void)? = nil, onPress: (() -> Void)? = nil) {
         self.label = label
+        self.isActive = isActive
         self.onHoverStart = onHoverStart
         self.onPress = onPress
     }
@@ -51,7 +53,10 @@ public struct ConversationRow: View {
                 }
         )
         .background {
-            if isHovering {
+            if isActive {
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(.gray.opacity(0.25))
+            } else if isHovering {
                 RoundedRectangle(cornerRadius: 4)
                     .fill(isClicking ? .gray.opacity(0.3) :.gray.opacity(0.2))
             }

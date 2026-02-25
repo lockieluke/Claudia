@@ -46,31 +46,35 @@ struct ContentView: View {
                             
                             LazyVStack {
                                 ForEach(dataModel.conversations, id: \.uuid) { conversation in
-                                    ConversationRow(conversation.name, onHoverStart: {
-                                        guard dataModel.conversationCache[conversation.uuid] == nil else { return }
-                                        Task {
-                                            do {
-                                                let fullConversation = try await self.api.getConversation(conversation.uuid)
-                                                self.dataModel.conversationCache[conversation.uuid] = fullConversation
-                                            } catch {
-                                                print("Failed to prefetch conversation: \(error.localizedDescription)")
-                                            }
-                                        }
-                                    }, onPress: {
-                                        if let cached = dataModel.conversationCache[conversation.uuid] {
-                                            self.dataModel.activeConversation = cached
-                                        } else {
+                                    ConversationRow(
+                                        conversation.name,
+                                        isActive: dataModel.activeConversation?.uuid == conversation.uuid,
+                                        onHoverStart: {
+                                            guard dataModel.conversationCache[conversation.uuid] == nil else { return }
                                             Task {
                                                 do {
                                                     let fullConversation = try await self.api.getConversation(conversation.uuid)
                                                     self.dataModel.conversationCache[conversation.uuid] = fullConversation
-                                                    self.dataModel.activeConversation = fullConversation
                                                 } catch {
-                                                    print("Failed to fetch conversation: \(error.localizedDescription)")
+                                                    print("Failed to prefetch conversation: \(error.localizedDescription)")
+                                                }
+                                            }
+                                        }, onPress: {
+                                            if let cached = dataModel.conversationCache[conversation.uuid] {
+                                                self.dataModel.activeConversation = cached
+                                            } else {
+                                                Task {
+                                                    do {
+                                                        let fullConversation = try await self.api.getConversation(conversation.uuid)
+                                                        self.dataModel.conversationCache[conversation.uuid] = fullConversation
+                                                        self.dataModel.activeConversation = fullConversation
+                                                    } catch {
+                                                        print("Failed to fetch conversation: \(error.localizedDescription)")
+                                                    }
                                                 }
                                             }
                                         }
-                                    })
+                                    )
                                 }
                             }
                         }

@@ -40,6 +40,15 @@ public struct SidebarControl: View {
         }
         .frame(maxWidth: .infinity)
         .frame(height: 30)
+        .background {
+            if isHovering {
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(isClicking ? .gray.opacity(0.3) :.gray.opacity(0.2))
+            }
+        }
+        .clipShape(RoundedRectangle(cornerRadius: 4))
+        .padding(.horizontal)
+        .contentShape(Rectangle())
         .onTapGesture {
             self.onPress?()
         }
@@ -55,14 +64,6 @@ public struct SidebarControl: View {
                     self.isClicking = false
                 }
         )
-        .background {
-            if isHovering {
-                RoundedRectangle(cornerRadius: 4)
-                    .fill(isClicking ? .gray.opacity(0.3) :.gray.opacity(0.2))
-            }
-        }
-        .clipShape(RoundedRectangle(cornerRadius: 4))
-        .padding(.horizontal)
         .enableInjection()
     }
     
