@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftUIMath
+import Foundation
 
 enum InlineSegment: Identifiable {
     case text(String)
@@ -222,6 +223,33 @@ struct FlowLayout: Layout {
     
 }
 
+/// Thread-safe cache for parsed block segments, keyed by message text.
+private final class ParsedBlocksCache {
+    static let shared = ParsedBlocksCache()
+    
+    private let cache = NSCache<NSString, CachedBlocks>()
+    
+    private init() {
+        cache.countLimit = 200
+    }
+    
+    func blocks(for text: String) -> [BlockSegment] {
+        let key = text as NSString
+        if let cached = cache.object(forKey: key) {
+            return cached.blocks
+        }
+        let parsed = parseContent(text)
+        cache.setObject(CachedBlocks(blocks: parsed), forKey: key)
+        return parsed
+    }
+}
+
+/// NSCache requires reference-type values.
+private final class CachedBlocks {
+    let blocks: [BlockSegment]
+    init(blocks: [BlockSegment]) { self.blocks = blocks }
+}
+
 public struct MarkdownLatexView: View {
     
     @ObserveInjection private var inject
@@ -235,7 +263,7 @@ public struct MarkdownLatexView: View {
     public init(_ text: String, fontSize: CGFloat = 15) {
         self.text = text
         self.fontSize = fontSize
-        self.blocks = parseContent(text)
+        self.blocks = ParsedBlocksCache.shared.blocks(for: text)
     }
     
     public var body: some View {
@@ -265,6 +293,7 @@ public struct MarkdownLatexView: View {
                                         .mathRenderingMode(.monochrome)
                                         .foregroundStyle(colorScheme == .dark ? .white : .black)
                                         .padding(.horizontal, 4)
+                                        .drawingGroup()
                                 }
                             }
                         }
@@ -275,6 +304,7 @@ public struct MarkdownLatexView: View {
                         .mathTypesettingStyle(.display)
                         .mathRenderingMode(.monochrome)
                         .foregroundStyle(colorScheme == .dark ? .white : .black)
+                        .drawingGroup()
                         .frame(maxWidth: .infinity, alignment: .center)
                         .padding(.vertical, 4)
                 }

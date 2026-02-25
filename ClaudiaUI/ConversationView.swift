@@ -32,9 +32,10 @@ public struct ConversationView: View {
             
             ScrollView(.vertical) {
                 LazyVStack(spacing: 25) {
-                    ForEach(Array(messages.enumerated()), id: \.element.uuid) { index, message in
-                        let isLastMessage = index == messages.count - 1
+                    ForEach(messages, id: \.uuid) { message in
+                        let isLastMessage = message.uuid == messages.last?.uuid
                         MessageBubble(message: message, showSparkle: isLastMessage && message.sender == "assistant")
+                            .equatable()
                     }
                 }
                 .padding(.horizontal, 40)
@@ -49,17 +50,26 @@ public struct ConversationView: View {
     }
 }
 
-struct MessageBubble: View {
+struct MessageBubble: View, Equatable {
     
     @ObserveInjection private var inject
     
     @Environment(\.colorScheme) private var colorScheme
     
-    private let displaySize = 16.0
-    private let displayLineHeight = 24.0
+    private static let displaySize = 16.0
+    private static let displayLineHeight = 24.0
+    
+    /// Cached SVG string — parsed once from the asset catalog.
+    private static let sparkleSVG: String = {
+        String(data: NSDataAsset(name: "Claude", bundle: .main)!.data, encoding: .utf8)!
+    }()
     
     let message: ClaudeMessage
     let showSparkle: Bool
+    
+    static func == (lhs: MessageBubble, rhs: MessageBubble) -> Bool {
+        lhs.message.uuid == rhs.message.uuid && lhs.showSparkle == rhs.showSparkle
+    }
     
     private var isHuman: Bool {
         message.sender == "human"
@@ -78,8 +88,8 @@ struct MessageBubble: View {
             VStack(alignment: .leading, spacing: 10) {
                 if isHuman {
                     Text(displayText)
-                        .font(.sansFont(size: displaySize))
-                        .lineHeight(displayLineHeight, fontSize: displaySize)
+                        .font(.sansFont(size: Self.displaySize))
+                        .lineHeight(Self.displayLineHeight, fontSize: Self.displaySize)
                         .textSelection(.enabled)
                         .padding(.horizontal, 15)
                         .padding(.vertical, 10)
@@ -88,11 +98,11 @@ struct MessageBubble: View {
                                 .fill(colorScheme == .dark ? Color(hex: "#141412") : Color(hex: "EFEFEE"))
                         }
                 } else {
-                    MarkdownLatexView(displayText, fontSize: displaySize)
+                    MarkdownLatexView(displayText, fontSize: Self.displaySize)
                 }
                 
                 if showSparkle {
-                    SVGView(string: String(data: NSDataAsset(name: "Claude", bundle: .main)!.data, encoding: .utf8)!)
+                    SVGView(string: Self.sparkleSVG)
                         .frame(width: 20, height: 20)
                         .padding(.vertical)
                 }
