@@ -9,11 +9,11 @@ import SwiftUI
 
 public extension Font {
     
-    static public func serifFont(size: CGFloat) -> Font {
+    static func serifFont(size: CGFloat) -> Font {
         Font.custom("Anthropic Serif Web Text", size: size)
     }
     
-    static public func sansFont(size: CGFloat) -> Font {
+    static func sansFont(size: CGFloat) -> Font {
         Font.custom("Anthropic Sans Web Text", size: size)
     }
     
