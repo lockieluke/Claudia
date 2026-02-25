@@ -8,6 +8,7 @@
 import SwiftUI
 import ClaudiaUI
 import ClaudiaAPI
+import SDWebImage
 @_spi(Advanced) import SwiftUIIntrospect
 
 class WindowObserver: NSObject, NSWindowDelegate {
@@ -40,6 +41,22 @@ struct ClaudiaApp: App {
     @StateObject private var navigationModel = NavigationModel()
     @StateObject private var api = API()
     @StateObject private var dataModel = DataModel()
+    
+    init() {
+        // Inject cookies from HTTPCookieStorage.shared into every SDWebImage request
+        // so authenticated Claude API image URLs work (session cookie from login)
+        SDWebImageDownloader.shared.requestModifier = SDWebImageDownloaderRequestModifier { request in
+            var mutableRequest = request
+            if let url = request.url,
+               let cookies = HTTPCookieStorage.shared.cookies(for: url) {
+                let headers = HTTPCookie.requestHeaderFields(with: cookies)
+                for (key, value) in headers {
+                    mutableRequest.setValue(value, forHTTPHeaderField: key)
+                }
+            }
+            return mutableRequest
+        }
+    }
     
     private func onResize(nsWindow: NSWindow? = nil) {
         nsWindow?.moveTrafficLights(to: NSPoint(x: 20, y: 17))

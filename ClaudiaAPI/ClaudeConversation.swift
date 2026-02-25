@@ -15,6 +15,46 @@ public struct ClaudeMessageContent: Decodable {
     }
 }
 
+public struct ClaudeFileAsset: Decodable {
+    public var url: String
+    public var fileVariant: String
+    public var primaryColor: String?
+    public var imageWidth: Int?
+    public var imageHeight: Int?
+    
+    enum CodingKeys: String, CodingKey {
+        case url
+        case fileVariant = "file_variant"
+        case primaryColor = "primary_color"
+        case imageWidth = "image_width"
+        case imageHeight = "image_height"
+    }
+}
+
+public struct ClaudeFile: Decodable {
+    public var fileKind: String
+    public var fileUuid: String
+    public var fileName: String
+    public var createdAt: String
+    public var thumbnailUrl: String?
+    public var previewUrl: String?
+    public var thumbnailAsset: ClaudeFileAsset?
+    public var previewAsset: ClaudeFileAsset?
+    public var uuid: String
+    
+    enum CodingKeys: String, CodingKey {
+        case fileKind = "file_kind"
+        case fileUuid = "file_uuid"
+        case fileName = "file_name"
+        case createdAt = "created_at"
+        case thumbnailUrl = "thumbnail_url"
+        case previewUrl = "preview_url"
+        case thumbnailAsset = "thumbnail_asset"
+        case previewAsset = "preview_asset"
+        case uuid
+    }
+}
+
 public struct ClaudeMessage: Decodable {
     public var uuid: String
     public var text: String
@@ -24,6 +64,7 @@ public struct ClaudeMessage: Decodable {
     public var createdAt: String
     public var updatedAt: String
     public var parentMessageUuid: String
+    public var files: [ClaudeFile]?
     
     enum CodingKeys: String, CodingKey {
         case uuid
@@ -34,6 +75,12 @@ public struct ClaudeMessage: Decodable {
         case createdAt = "created_at"
         case updatedAt = "updated_at"
         case parentMessageUuid = "parent_message_uuid"
+        case files = "files_v2"
+    }
+    
+    /// Returns only image file attachments.
+    public var imageFiles: [ClaudeFile] {
+        (files ?? []).filter { $0.fileKind == "image" }
     }
 }
 

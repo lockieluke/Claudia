@@ -15,14 +15,16 @@ public struct ConversationView: View {
     
     private let conversation: ClaudeConversation
     private let availableModels: [String]
+    private let onImageTap: (URL, String) -> Void
     
     private var messages: [ClaudeMessage] {
         conversation.chatMessages ?? []
     }
     
-    public init(conversation: ClaudeConversation, models: [String]) {
+    public init(conversation: ClaudeConversation, models: [String], onImageTap: @escaping (URL, String) -> Void) {
         self.conversation = conversation
         self.availableModels = models
+        self.onImageTap = onImageTap
     }
     
     public var body: some View {
@@ -34,8 +36,7 @@ public struct ConversationView: View {
                 LazyVStack(spacing: 25) {
                     ForEach(messages, id: \.uuid) { message in
                         let isLastMessage = message.uuid == messages.last?.uuid
-                        MessageBubble(message: message, showSparkle: isLastMessage && message.sender == "assistant")
-                            .equatable()
+                        MessageBubble(message: message, showSparkle: isLastMessage && message.sender == "assistant", onImageTap: onImageTap)
                     }
                 }
                 .padding(.horizontal, 40)
@@ -50,7 +51,7 @@ public struct ConversationView: View {
     }
 }
 
-struct MessageBubble: View, Equatable {
+struct MessageBubble: View {
     
     @ObserveInjection private var inject
     
@@ -66,10 +67,7 @@ struct MessageBubble: View, Equatable {
     
     let message: ClaudeMessage
     let showSparkle: Bool
-    
-    static func == (lhs: MessageBubble, rhs: MessageBubble) -> Bool {
-        lhs.message.uuid == rhs.message.uuid && lhs.showSparkle == rhs.showSparkle
-    }
+    let onImageTap: (URL, String) -> Void
     
     private var isHuman: Bool {
         message.sender == "human"
@@ -82,13 +80,26 @@ struct MessageBubble: View, Equatable {
         return joined.isEmpty ? message.text : joined
     }
     
+    private var hasImages: Bool {
+        !message.imageFiles.isEmpty
+    }
+    
     var body: some View {
         HStack {
             if isHuman {
                 Spacer()
             }
             
-            VStack(alignment: .leading, spacing: 10) {
+            VStack(alignment: isHuman ? .trailing : .leading, spacing: 10) {
+                // Image attachments (shown above text)
+                if hasImages {
+                    HStack(spacing: 8) {
+                        ForEach(message.imageFiles, id: \.uuid) { file in
+                            MessageImageView(file: file, onTap: onImageTap)
+                        }
+                    }
+                }
+                
                 if isHuman {
                     Text(displayText)
                         .font(.sansFont(size: Self.displaySize))

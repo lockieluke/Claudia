@@ -13,6 +13,7 @@
 		B7DEB88F2F4F220E00152398 /* SVGView in Frameworks */ = {isa = PBXBuildFile; productRef = B7DEB88E2F4F220E00152398 /* SVGView */; };
 		B7DEB8D72F4F41D100152398 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = B7DEB8D62F4F41D100152398 /* SwiftUIIntrospect */; };
 		B7DEBA512F4F808500152398 /* SwiftUIMath in Frameworks */ = {isa = PBXBuildFile; productRef = B7DEBA502F4F808500152398 /* SwiftUIMath */; };
+		B7DEBAD82F4F882C00152398 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = B7DEBAD72F4F882C00152398 /* SDWebImageSwiftUI */; };
 		B7E62AD22F4A2F8F00C71BA8 /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = B7E62AD12F4A2F8F00C71BA8 /* Inject */; };
 		B7E62ADE2F4A316700C71BA8 /* ClaudiaAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E62AD82F4A316700C71BA8 /* ClaudiaAuth.framework */; };
 		B7E62ADF2F4A316700C71BA8 /* ClaudiaAuth.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B7E62AD82F4A316700C71BA8 /* ClaudiaAuth.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -182,6 +183,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7DEBAD82F4F882C00152398 /* SDWebImageSwiftUI in Frameworks */,
 				B7DEB88F2F4F220E00152398 /* SVGView in Frameworks */,
 				B7F77D862F4D35A600BAB622 /* SFSafeSymbols in Frameworks */,
 				B7E62B342F4B2BFB00C71BA8 /* Inject in Frameworks */,
@@ -356,6 +358,7 @@
 				B7DEB88E2F4F220E00152398 /* SVGView */,
 				B7DEB8D62F4F41D100152398 /* SwiftUIIntrospect */,
 				B7DEBA502F4F808500152398 /* SwiftUIMath */,
+				B7DEBAD72F4F882C00152398 /* SDWebImageSwiftUI */,
 			);
 			productName = ClaudiaUI;
 			productReference = B7E62B242F4B2B5C00C71BA8 /* ClaudiaUI.framework */;
@@ -404,6 +407,7 @@
 				B774A9562F4E1A3300C1162D /* XCRemoteSwiftPackageReference "swiftui-introspect" */,
 				B7DEB88D2F4F220E00152398 /* XCRemoteSwiftPackageReference "SVGView" */,
 				B7DEBA4F2F4F808500152398 /* XCRemoteSwiftPackageReference "swiftui-math" */,
+				B7DEBAD62F4F882C00152398 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B7E62AC32F4A2F2E00C71BA8 /* Products */;
@@ -1036,6 +1040,14 @@
 				minimumVersion = 0.1.0;
 			};
 		};
+		B7DEBAD62F4F882C00152398 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.4;
+			};
+		};
 		B7E62AD02F4A2F8F00C71BA8 /* XCRemoteSwiftPackageReference "Inject" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/krzysztofzablocki/Inject.git";
@@ -1116,6 +1128,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B7DEBA4F2F4F808500152398 /* XCRemoteSwiftPackageReference "swiftui-math" */;
 			productName = SwiftUIMath;
+		};
+		B7DEBAD72F4F882C00152398 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B7DEBAD62F4F882C00152398 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
 		};
 		B7E62AD12F4A2F8F00C71BA8 /* Inject */ = {
 			isa = XCSwiftPackageProductDependency;

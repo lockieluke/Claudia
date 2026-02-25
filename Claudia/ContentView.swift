@@ -82,7 +82,11 @@ struct ContentView: View {
             }
             
             if let activeConversation = dataModel.activeConversation {
-                ConversationView(conversation: activeConversation, models: ["Sonnet 4.6", "Haiku 4.6", "Opus 4.6"])
+                ConversationView(conversation: activeConversation, models: ["Sonnet 4.6", "Haiku 4.6", "Opus 4.6"]) { imageURL, fileName in
+                    withAnimation(.interactiveSpring) {
+                        dataModel.imageOverlay = ImageOverlayState(imageURL: imageURL, fileName: fileName)
+                    }
+                }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
                 NewChatView(name: dataModel.user?.displayName) {
@@ -104,6 +108,17 @@ struct ContentView: View {
                     }
                 }
                 Spacer()
+            }
+        }
+        .overlay {
+            if let overlayState = dataModel.imageOverlay {
+                ImageOverlayView(imageURL: overlayState.imageURL, fileName: overlayState.fileName) {
+                    withAnimation(.interactiveSpring) {
+                        dataModel.imageOverlay = nil
+                    }
+                }
+                .transition(.opacity)
+                .zIndex(100)
             }
         }
         .task {

@@ -6,13 +6,21 @@
 //
 
 import Combine
+import Foundation
 import ClaudiaAPI
+
+/// State for the fullscreen image overlay.
+struct ImageOverlayState {
+    let imageURL: URL
+    let fileName: String
+}
 
 class DataModel: ObservableObject {
     
     @Published var conversations: [ClaudeConversation] = []
     @Published var user: ClaudeAccount?
     @Published var activeConversation: ClaudeConversation?
+    @Published var imageOverlay: ImageOverlayState?
     
     var conversationCache: [String: ClaudeConversation] = [:]
     
