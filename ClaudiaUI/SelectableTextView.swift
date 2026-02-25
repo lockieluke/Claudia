@@ -111,21 +111,27 @@ func markdownAttributedString(_ markdown: String, font: NSFont, lineHeight: CGFl
     // Try parsing markdown via the system AttributedString API
     if let mdAttr = try? AttributedString(markdown: markdown, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace)) {
         let nsAttr = NSMutableAttributedString(mdAttr)
-        // Apply base attributes across the full range, preserving bold/italic traits
+        let inlinePresentationKey = NSAttributedString.Key("NSInlinePresentationIntent")
+        let boldFont = NSFont(name: "AnthropicSerifWebVariable-TextSemibold", size: font.pointSize) ?? font
+
+        // Apply base attributes, then check NSInlinePresentationIntent for bold/italic
         nsAttr.enumerateAttributes(in: NSRange(location: 0, length: nsAttr.length), options: []) { attrs, range, _ in
             var merged = baseAttributes
-            // Preserve any existing font traits (bold, italic) from markdown parsing
-            if let existingFont = attrs[.font] as? NSFont {
-                let traits = existingFont.fontDescriptor.symbolicTraits
-                var descriptor = font.fontDescriptor
-                if traits.contains(.bold) {
-                    descriptor = descriptor.withSymbolicTraits(.bold)
+            
+            if let intent = attrs[inlinePresentationKey] as? Int {
+                let isBold = (intent & 2) != 0    // InlinePresentationIntent.stronglyEmphasized
+                let isItalic = (intent & 1) != 0  // InlinePresentationIntent.emphasized
+
+                if isBold && isItalic {
+                    merged[.font] = boldFont
+                    merged[.obliqueness] = 0.2 as NSNumber
+                } else if isBold {
+                    merged[.font] = boldFont
+                } else if isItalic {
+                    merged[.obliqueness] = 0.2 as NSNumber
                 }
-                if traits.contains(.italic) {
-                    descriptor = descriptor.withSymbolicTraits(.italic)
-                }
-                merged[.font] = NSFont(descriptor: descriptor, size: font.pointSize) ?? font
             }
+            
             // Preserve link attributes
             if let link = attrs[.link] {
                 merged[.link] = link
