@@ -9,4 +9,5 @@ import Defaults
 
 extension Defaults.Keys {
     static let sidebarOpened = Key<Bool>("sidebarOpened", default: true)
+    static let lastOrganisationId = Key<String?>("lastOrgId", default: nil)
 }

@@ -6,13 +6,16 @@
 //
 
 import SwiftUI
+import ClaudiaAPI
 import ClaudiaAuth
 import ClaudiaUI
 import Defaults
 
 struct ContentView: View {
     
+    @EnvironmentObject private var dataModel: DataModel
     @EnvironmentObject private var navigationModel: NavigationModel
+    @EnvironmentObject private var api: API
     
     @Default(.sidebarOpened) private var sidebarOpened
     @State private var showSidebar = Defaults[.sidebarOpened]
@@ -26,6 +29,25 @@ struct ContentView: View {
                     VStack(spacing: 5) {
                         SidebarControl("New Chat", icon: .plus)
                         SidebarControl("Search", icon: .magnifyingglass)
+                        
+                        Divider()
+                            .padding(.horizontal)
+                            .padding(.vertical, 10)
+                        
+                        
+                        ScrollView(.vertical) {
+                            Text("Recents")
+                                .font(.sansFont(size: 11))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.horizontal, 23)
+                                .foregroundStyle(.gray)
+                            
+                            LazyVStack {
+                                ForEach(dataModel.conversations, id: \.uuid) { conversation in
+                                    ConversationRow(conversation.name)
+                                }
+                            }
+                        }
                     }
                     .padding(.vertical)
                 }
@@ -52,6 +74,14 @@ struct ContentView: View {
             if !(await Auth.resolveExistingSession()) {
                 let code = await Auth.startGoogleAuthFlow()
                 await Auth.resolveSessionKeyFromGoogleAuth(code: code)
+            }
+            self.api.organisationId = Defaults[.lastOrganisationId]
+            
+            do {
+                let conversations = try await self.api.getConversations()
+                self.dataModel.conversations = conversations
+            } catch {
+                print("Failed to fetch conversations: \(error)")
             }
         }
         .ignoresSafeArea()

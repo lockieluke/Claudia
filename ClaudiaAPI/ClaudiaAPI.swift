@@ -6,19 +6,22 @@
 //
 
 import Foundation
+import Combine
+import KeyedCodable
+import SwiftUI
 internal import Alamofire
 internal import SwiftyUtils
 
-public struct API {
+public class API: ObservableObject {
    
     private static let ClaudeAF = Session(configuration: URLSessionConfiguration.default.then { configuration in
         // TODO: Configure Claude Desktop headers
     })
     private static let BASE_URL = "https://claude.ai/api"
     
-    private var organisationId: String?
+    @Published public var organisationId: String? = nil
     
-    init() {
+    public init() {
         
     }
     
@@ -40,11 +43,11 @@ public struct API {
     }
     
     static func orgRequest<T: Decodable>(_ endpoint: String, _ orgId: String, method: HTTPMethod = .get, parameters: Parameters? = nil, headers: HTTPHeaders? = nil) async throws -> T {
-        try await self.request("/organization/\(orgId)/\(endpoint)", method: method, parameters: parameters, headers: headers)
+        try await self.request("/organizations/\(orgId)/\(endpoint)", method: method, parameters: parameters, headers: headers)
     }
     
-    func getConversations(starred: Bool = false, limit: Int = 30, consistency: String = "strong") {
-        
+    public func getConversations(starred: Bool = false, limit: Int = 30, consistency: String = "strong") async throws -> [ClaudeConversation] {
+        try await API.orgRequest("chat_conversations?starred=\(starred)&limit=\(limit)&consistency=\(consistency)", self.organisationId ?? "")
     }
     
 }

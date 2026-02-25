@@ -1,13 +1,13 @@
 //
-//  SidebarControl.swift
+//  ConversationRow.swift
 //  Claudia
 //
-//  Created by Sherlock LUK on 24/02/2026.
+//  Created by Sherlock LUK on 25/02/2026.
 //
 
 import SwiftUI
 
-public struct SidebarControl: View {
+public struct ConversationRow: View {
     
     @ObserveInjection var inject
     
@@ -15,26 +15,18 @@ public struct SidebarControl: View {
     @State private var isClicking = false
     
     private let label: String
-    private let icon: SFSymbol
     
-    public init(_ label: String, icon: SFSymbol) {
+    public init(_ label: String) {
         self.label = label
-        self.icon = icon
     }
     
     public var body: some View {
         HStack {
-            Image(systemSymbol: icon)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 12, height: 12)
-                .padding(.horizontal, 5)
-                .padding(.leading, 5)
             Text(label)
                 .font(.sansFont(size: 13))
-                .tracking(0.3)
-            
-            Spacer()
+                .tracking(0.2)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 7)
         }
         .frame(maxWidth: .infinity)
         .frame(height: 30)
@@ -64,5 +56,5 @@ public struct SidebarControl: View {
 }
 
 #Preview {
-    SidebarControl("New Chat", icon: .plus)
+    ConversationRow("New Chat")
 }

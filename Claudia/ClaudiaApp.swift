@@ -7,6 +7,7 @@
 
 import SwiftUI
 import ClaudiaUI
+import ClaudiaAPI
 @_spi(Advanced) import SwiftUIIntrospect
 
 class WindowObserver: NSObject, NSWindowDelegate {
@@ -37,6 +38,8 @@ struct ClaudiaApp: App {
     @ObserveInjection private var inject
     
     @StateObject private var navigationModel = NavigationModel()
+    @StateObject private var api = API()
+    @StateObject private var dataModel = DataModel()
     
     private func onResize(nsWindow: NSWindow? = nil) {
         nsWindow?.moveTrafficLights(to: NSPoint(x: 20, y: 17))
@@ -72,6 +75,8 @@ struct ClaudiaApp: App {
                     self.onResize(nsWindow: nsWindow)
                 }
                 .environmentObject(navigationModel)
+                .environmentObject(api)
+                .environmentObject(dataModel)
                 .enableInjection()
             
         }

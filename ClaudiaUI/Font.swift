@@ -7,10 +7,14 @@
 
 import SwiftUI
 
-extension Font {
+public extension Font {
     
-    static func claudeFont(size: CGFloat) -> Font {
+    static public func serifFont(size: CGFloat) -> Font {
         Font.custom("Anthropic Serif Web Text", size: size)
+    }
+    
+    static public func sansFont(size: CGFloat) -> Font {
+        Font.custom("Anthropic Sans Web Text", size: size)
     }
     
 }

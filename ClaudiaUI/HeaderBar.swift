@@ -35,7 +35,7 @@ public struct HeaderBar: View {
                 .help("Toggle sidebar ⌘S")
                 .keyboardShortcut("s", modifiers: .command)
             Text("Claudia")
-                .font(.claudeFont(size: 15))
+                .font(.serifFont(size: 15))
             Spacer()
         }
         .padding(.vertical)
