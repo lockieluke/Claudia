@@ -12,6 +12,7 @@
 		B774A95E2F4E259600C1162D /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = B774A95D2F4E259600C1162D /* Defaults */; };
 		B774A9B72F4E6D9500C1162D /* KeyedCodable in Frameworks */ = {isa = PBXBuildFile; productRef = B774A9B62F4E6D9500C1162D /* KeyedCodable */; };
 		B7DEB88F2F4F220E00152398 /* SVGView in Frameworks */ = {isa = PBXBuildFile; productRef = B7DEB88E2F4F220E00152398 /* SVGView */; };
+		B7DEB8D72F4F41D100152398 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = B7DEB8D62F4F41D100152398 /* SwiftUIIntrospect */; };
 		B7E62AD22F4A2F8F00C71BA8 /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = B7E62AD12F4A2F8F00C71BA8 /* Inject */; };
 		B7E62ADE2F4A316700C71BA8 /* ClaudiaAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E62AD82F4A316700C71BA8 /* ClaudiaAuth.framework */; };
 		B7E62ADF2F4A316700C71BA8 /* ClaudiaAuth.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B7E62AD82F4A316700C71BA8 /* ClaudiaAuth.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -185,6 +186,7 @@
 				B7DEB88F2F4F220E00152398 /* SVGView in Frameworks */,
 				B7F77D862F4D35A600BAB622 /* SFSafeSymbols in Frameworks */,
 				B7E62B342F4B2BFB00C71BA8 /* Inject in Frameworks */,
+				B7DEB8D72F4F41D100152398 /* SwiftUIIntrospect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,6 +355,7 @@
 				B7E62B332F4B2BFB00C71BA8 /* Inject */,
 				B7F77D852F4D35A600BAB622 /* SFSafeSymbols */,
 				B7DEB88E2F4F220E00152398 /* SVGView */,
+				B7DEB8D62F4F41D100152398 /* SwiftUIIntrospect */,
 			);
 			productName = ClaudiaUI;
 			productReference = B7E62B242F4B2B5C00C71BA8 /* ClaudiaUI.framework */;
@@ -1108,6 +1111,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B7DEB88D2F4F220E00152398 /* XCRemoteSwiftPackageReference "SVGView" */;
 			productName = SVGView;
+		};
+		B7DEB8D62F4F41D100152398 /* SwiftUIIntrospect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B774A9562F4E1A3300C1162D /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
+			productName = SwiftUIIntrospect;
 		};
 		B7E62AD12F4A2F8F00C71BA8 /* Inject */ = {
 			isa = XCSwiftPackageProductDependency;

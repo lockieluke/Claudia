@@ -8,20 +8,22 @@
 import SwiftUI
 import SVGView
 
-public struct NewChatView: View {
+public struct NewChatView<Content: View>: View {
     
     @ObserveInjection private var inject
+    
+    private let content: Content
     
     private var greeting: String {
         let hour = Calendar.current.component(.hour, from: Date())
         
         switch hour {
         case 5..<12:
-            return "Good Morning"
+            return "Good morning"
         case 12..<17:
-            return "Good Afternoon"
+            return "Good afternoon"
         case 17..<22:
-            return "Good Evening"
+            return "Good evening"
         default:
             return "Hello"
         }
@@ -29,8 +31,9 @@ public struct NewChatView: View {
     
     private let name: String?
     
-    public init(name: String?) {
+    public init(name: String?, @ViewBuilder content: () -> Content) {
         self.name = name
+        self.content = content()
     }
     
     public var body: some View {
@@ -45,6 +48,8 @@ public struct NewChatView: View {
                 }
             }
             .animation(.spring, value: name)
+            
+            content
         }
         .enableInjection()
     }

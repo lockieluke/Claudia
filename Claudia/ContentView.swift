@@ -55,8 +55,10 @@ struct ContentView: View {
                 .transition(.move(edge: .leading))
             }
             
-            NewChatView(name: dataModel.user?.displayName)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            NewChatView(name: dataModel.user?.displayName) {
+                MessageBox(models: ["Sonnet 4.6", "Haiku 4.6", "Opus 4.6"])
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .overlay {
