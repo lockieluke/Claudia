@@ -8,96 +8,218 @@
 import SwiftUI
 import SwiftUIMath
 
-enum ContentSegment: Identifiable {
-    case markdown(String)
-    case inlineLatex(String)
-    case displayLatex(String)
+enum InlineSegment: Identifiable {
+    case text(String)
+    case math(String)
     
     var id: String {
         switch self {
-        case .markdown(let text): return "md:\(text)"
-        case .inlineLatex(let tex): return "il:\(tex)"
-        case .displayLatex(let tex): return "dl:\(tex)"
+        case .text(let t): return "t:\(t)"
+        case .math(let m): return "m:\(m)"
         }
     }
 }
 
-/// Parses a string containing mixed markdown and LaTeX into segments.
-/// Supports `\(...\)` for inline LaTeX, `\[...\]` and `$$...$$` for display LaTeX.
-func parseContent(_ text: String) -> [ContentSegment] {
-    var segments: [ContentSegment] = []
-    var remaining = text[text.startIndex...]
+enum BlockSegment: Identifiable {
+    case paragraph([InlineSegment])
+    case displayMath(String)
     
-    while !remaining.isEmpty {
-        // Find the earliest LaTeX delimiter
-        var earliestRange: Range<String.Index>? = nil
-        var earliestType: String? = nil
-        
-        let delimiters: [(open: String, close: String, type: String)] = [
-            ("\\[", "\\]", "display"),
-            ("$$", "$$", "display"),
-            ("\\(", "\\)", "inline"),
-        ]
-        
-        for delimiter in delimiters {
-            if let openRange = remaining.range(of: delimiter.open) {
-                if earliestRange == nil || openRange.lowerBound < earliestRange!.lowerBound {
-                    earliestRange = openRange
-                    earliestType = delimiter.type
-                }
-            }
+    var id: String {
+        switch self {
+        case .paragraph(let segs): return "p:\(segs.map(\.id).joined())"
+        case .displayMath(let tex): return "dm:\(tex)"
         }
-        
-        guard let openRange = earliestRange, let type = earliestType else {
-            // No more LaTeX — rest is markdown
-            let markdownText = String(remaining).trimmingCharacters(in: .whitespacesAndNewlines)
-            if !markdownText.isEmpty {
-                segments.append(.markdown(markdownText))
+    }
+}
+
+/// Parses a string containing mixed markdown and LaTeX into block-level segments.
+/// Inline math (`$...$`, `\(...\)`) stays within paragraphs.
+/// Display math (`$$...$$`, `\[...\]`) and double newlines create block breaks.
+func parseContent(_ text: String) -> [BlockSegment] {
+    // Ordered so that `$$` and `\[` are checked before `$` and `\(`
+    let delimiters: [(open: String, close: String, type: String)] = [
+        ("\\[", "\\]", "display"),
+        ("$$", "$$", "display"),
+        ("\\(", "\\)", "inline"),
+        ("$", "$", "inline"),
+    ]
+    
+    var blocks: [BlockSegment] = []
+    var currentInline: [InlineSegment] = []
+    var i = text.startIndex
+    var textStart = i
+    
+    func flushText(upTo end: String.Index) {
+        guard textStart < end else { return }
+        let t = String(text[textStart..<end])
+        // Split on double newlines for paragraph breaks
+        let paragraphs = t.components(separatedBy: "\n\n")
+        for (idx, para) in paragraphs.enumerated() {
+            let trimmed = para.trimmingCharacters(in: .whitespacesAndNewlines)
+            if !trimmed.isEmpty {
+                currentInline.append(.text(trimmed))
             }
-            break
-        }
-        
-        // Add markdown before this LaTeX block
-        let before = String(remaining[remaining.startIndex..<openRange.lowerBound]).trimmingCharacters(in: .whitespacesAndNewlines)
-        if !before.isEmpty {
-            segments.append(.markdown(before))
-        }
-        
-        // Find the matching close delimiter
-        let afterOpen = remaining[openRange.upperBound...]
-        let closeDelimiter: String
-        if type == "display" {
-            // Determine which open delimiter was matched
-            if remaining[openRange].hasPrefix("\\[") {
-                closeDelimiter = "\\]"
-            } else {
-                closeDelimiter = "$$"
+            // Paragraph break between parts — flush current inline as a block
+            if idx < paragraphs.count - 1 && !currentInline.isEmpty {
+                blocks.append(.paragraph(currentInline))
+                currentInline = []
             }
-        } else {
-            closeDelimiter = "\\)"
-        }
-        
-        if let closeRange = afterOpen.range(of: closeDelimiter) {
-            let latex = String(afterOpen[afterOpen.startIndex..<closeRange.lowerBound]).trimmingCharacters(in: .whitespacesAndNewlines)
-            if !latex.isEmpty {
-                if type == "display" {
-                    segments.append(.displayLatex(latex))
-                } else {
-                    segments.append(.inlineLatex(latex))
-                }
-            }
-            remaining = afterOpen[closeRange.upperBound...]
-        } else {
-            // No closing delimiter — treat rest as markdown
-            let rest = String(remaining).trimmingCharacters(in: .whitespacesAndNewlines)
-            if !rest.isEmpty {
-                segments.append(.markdown(rest))
-            }
-            break
         }
     }
     
-    return segments
+    func flushInline() {
+        guard !currentInline.isEmpty else { return }
+        blocks.append(.paragraph(currentInline))
+        currentInline = []
+    }
+    
+    while i < text.endIndex {
+        var matched = false
+        
+        for delimiter in delimiters {
+            let open = delimiter.open
+            let close = delimiter.close
+            
+            guard let openEnd = text.index(i, offsetBy: open.count, limitedBy: text.endIndex),
+                  text[i..<openEnd] == open else {
+                continue
+            }
+            
+            // For single `$`, disambiguate from `$$`
+            if open == "$" && openEnd < text.endIndex && text[openEnd] == "$" {
+                continue
+            }
+            
+            // Search for the closing delimiter
+            var searchFrom = openEnd
+            var closeRange: Range<String.Index>? = nil
+            
+            while searchFrom < text.endIndex {
+                guard let found = text.range(of: close, range: searchFrom..<text.endIndex) else {
+                    break
+                }
+                
+                if close == "$" && open == "$" {
+                    let afterClose = found.upperBound
+                    if afterClose < text.endIndex && text[afterClose] == "$" {
+                        searchFrom = text.index(afterClose, offsetBy: 1, limitedBy: text.endIndex) ?? text.endIndex
+                        continue
+                    }
+                }
+                
+                closeRange = found
+                break
+            }
+            
+            guard let closeFound = closeRange else {
+                continue
+            }
+            
+            // Flush any text before this delimiter
+            flushText(upTo: i)
+            
+            let latex = String(text[openEnd..<closeFound.lowerBound]).trimmingCharacters(in: .whitespacesAndNewlines)
+            
+            if delimiter.type == "display" {
+                flushInline()
+                if !latex.isEmpty {
+                    blocks.append(.displayMath(latex))
+                }
+            } else {
+                if !latex.isEmpty {
+                    currentInline.append(.math(latex))
+                }
+            }
+            
+            i = closeFound.upperBound
+            textStart = i
+            matched = true
+            break
+        }
+        
+        if !matched {
+            i = text.index(after: i)
+        }
+    }
+    
+    // Flush remaining text and inline segments
+    flushText(upTo: text.endIndex)
+    flushInline()
+    
+    return blocks
+}
+
+/// A wrapping flow layout that places inline content on the same line,
+/// breaking to the next line when the available width is exceeded.
+struct FlowLayout: Layout {
+    
+    var spacing: CGFloat = 4
+    
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        let result = arrange(proposal: proposal, subviews: subviews)
+        return result.size
+    }
+    
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        let result = arrange(proposal: proposal, subviews: subviews)
+        for (index, position) in result.positions.enumerated() {
+            subviews[index].place(
+                at: CGPoint(x: bounds.minX + position.x, y: bounds.minY + position.y),
+                proposal: .unspecified
+            )
+        }
+    }
+    
+    private func arrange(proposal: ProposedViewSize, subviews: Subviews) -> (size: CGSize, positions: [CGPoint]) {
+        let maxWidth = proposal.width ?? .infinity
+        
+        // First pass: assign rows and compute row heights
+        struct RowItem {
+            var x: CGFloat
+            var rowIndex: Int
+            var size: CGSize
+        }
+        
+        var items: [RowItem] = []
+        var rowHeights: [CGFloat] = []
+        var x: CGFloat = 0
+        var rowIndex = 0
+        var currentRowHeight: CGFloat = 0
+        
+        for subview in subviews {
+            let size = subview.sizeThatFits(.unspecified)
+            
+            if x + size.width > maxWidth && x > 0 {
+                rowHeights.append(currentRowHeight)
+                x = 0
+                rowIndex += 1
+                currentRowHeight = 0
+            }
+            
+            items.append(RowItem(x: x, rowIndex: rowIndex, size: size))
+            currentRowHeight = max(currentRowHeight, size.height)
+            x += size.width + spacing
+        }
+        rowHeights.append(currentRowHeight)
+        
+        // Second pass: compute y positions with vertical centering within each row
+        var positions: [CGPoint] = []
+        var rowY: [CGFloat] = [0]
+        for i in 1..<rowHeights.count {
+            rowY.append(rowY[i - 1] + rowHeights[i - 1] + spacing)
+        }
+        
+        var totalWidth: CGFloat = 0
+        for item in items {
+            let yOffset = (rowHeights[item.rowIndex] - item.size.height) / 2
+            positions.append(CGPoint(x: item.x, y: rowY[item.rowIndex] + yOffset))
+            totalWidth = max(totalWidth, item.x + item.size.width)
+        }
+        
+        let totalHeight = rowY.last.map { $0 + rowHeights.last! } ?? 0
+        return (CGSize(width: totalWidth, height: totalHeight), positions)
+    }
+    
 }
 
 public struct MarkdownLatexView: View {
@@ -108,29 +230,46 @@ public struct MarkdownLatexView: View {
     
     private let text: String
     private let fontSize: CGFloat
-    private let segments: [ContentSegment]
+    private let blocks: [BlockSegment]
     
     public init(_ text: String, fontSize: CGFloat = 15) {
         self.text = text
         self.fontSize = fontSize
-        self.segments = parseContent(text)
+        self.blocks = parseContent(text)
     }
     
     public var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            ForEach(segments) { segment in
-                switch segment {
-                case .markdown(let md):
-                    Text(LocalizedStringKey(md))
-                        .font(.serifFont(size: fontSize))
-                        .lineHeight(24, fontSize: fontSize)
-                        .textSelection(.enabled)
-                case .inlineLatex(let tex):
-                    Math(tex)
-                        .mathFont(Math.Font(name: .latinModern, size: fontSize))
-                        .mathRenderingMode(.monochrome)
-                        .foregroundStyle(colorScheme == .dark ? .white : .black)
-                case .displayLatex(let tex):
+            ForEach(blocks) { block in
+                switch block {
+                case .paragraph(let inlines):
+                    if inlines.allSatisfy({ if case .text = $0 { return true }; return false }) {
+                        // Pure text paragraph — render as a single markdown Text
+                        let combined = inlines.map { if case .text(let t) = $0 { return t }; return "" }.joined(separator: " ")
+                        Text(LocalizedStringKey(combined))
+                            .font(.serifFont(size: fontSize))
+                            .lineHeight(24, fontSize: fontSize)
+                            .textSelection(.enabled)
+                    } else {
+                        // Mixed text + inline math — use flow layout
+                        FlowLayout(spacing: 2) {
+                            ForEach(inlines) { inline in
+                                switch inline {
+                                case .text(let md):
+                                    Text(LocalizedStringKey(md))
+                                        .font(.serifFont(size: fontSize))
+                                        .textSelection(.enabled)
+                                case .math(let tex):
+                                    Math(tex)
+                                        .mathFont(Math.Font(name: .latinModern, size: fontSize))
+                                        .mathRenderingMode(.monochrome)
+                                        .foregroundStyle(colorScheme == .dark ? .white : .black)
+                                        .padding(.horizontal, 4)
+                                }
+                            }
+                        }
+                    }
+                case .displayMath(let tex):
                     Math(tex)
                         .mathFont(Math.Font(name: .latinModern, size: fontSize + 2))
                         .mathTypesettingStyle(.display)
