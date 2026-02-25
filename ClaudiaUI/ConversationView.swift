@@ -55,8 +55,8 @@ struct MessageBubble: View {
     
     @Environment(\.colorScheme) private var colorScheme
     
-    private let displaySize = 15.0
-    private let displayLineSpacing = 10.0
+    private let displaySize = 16.0
+    private let displayLineHeight = 24.0
     
     let message: ClaudeMessage
     let showSparkle: Bool
@@ -79,7 +79,7 @@ struct MessageBubble: View {
                 if isHuman {
                     Text(displayText)
                         .font(.sansFont(size: displaySize))
-                        .lineSpacing(displayLineSpacing)
+                        .lineHeight(displayLineHeight, fontSize: displaySize)
                         .textSelection(.enabled)
                         .padding(.horizontal, 15)
                         .padding(.vertical, 10)

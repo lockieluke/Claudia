@@ -8,6 +8,19 @@
 import SwiftUI
 @_spi(Advanced) import SwiftUIIntrospect
 
+private struct LineHeightModifier: ViewModifier {
+    
+    let height: CGFloat
+    let fontSize: CGFloat
+    
+    func body(content: Content) -> some View {
+        content
+            .lineSpacing(height - fontSize)
+            .padding(.vertical, (height - fontSize) / 2)
+    }
+    
+}
+
 // Taken from https://github.com/lockieluke/cider-swiftui/blob/e87ba9c48b90aa172728d5746ad06e62b6d48539/Cider/Views/ViewModifiers/TransparentScrollbarsModifier.swift
 private struct TransparentScrollbarsModifier: ViewModifier {
     
@@ -47,6 +60,10 @@ public extension View {
     
     func transparentScrollbars(_ enabled: Bool = true) -> some View {
         self.modifier(TransparentScrollbarsModifier(enabled: enabled))
+    }
+    
+    func lineHeight(_ height: CGFloat, fontSize: CGFloat) -> some View {
+        self.modifier(LineHeightModifier(height: height, fontSize: fontSize))
     }
     
 }

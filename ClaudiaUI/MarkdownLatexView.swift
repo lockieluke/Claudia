@@ -122,8 +122,8 @@ public struct MarkdownLatexView: View {
                 switch segment {
                 case .markdown(let md):
                     Text(LocalizedStringKey(md))
-                        .font(.sansFont(size: fontSize))
-                        .lineSpacing(5)
+                        .font(.serifFont(size: fontSize))
+                        .lineHeight(24, fontSize: fontSize)
                         .textSelection(.enabled)
                 case .inlineLatex(let tex):
                     Math(tex)
