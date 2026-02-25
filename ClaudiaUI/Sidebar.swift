@@ -22,7 +22,6 @@ public struct Sidebar<Content: View>: View {
             Spacer()
                 .frame(height: 40)
             content
-            Spacer()
         }
         .frame(width: 280)
         .background(.gray.opacity(0.1))

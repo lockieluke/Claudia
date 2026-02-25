@@ -82,7 +82,7 @@ struct ContentView: View {
                         }
                         .transparentScrollbars()
                     }
-                    .padding(.vertical)
+                    .padding(.top)
                 }
                 .transition(.move(edge: .leading))
             }
