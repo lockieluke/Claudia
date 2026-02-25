@@ -33,11 +33,11 @@ public class API: ObservableObject {
         
     }
     
-    static func request<T: Decodable>(_ endpoint: String, method: HTTPMethod = .get, parameters: Parameters? = nil, headers: HTTPHeaders? = nil) async throws -> T {
+    static func request<T: Decodable>(_ endpoint: String, method: HTTPMethod = .get, parameters: Parameters? = nil, encoding: ParameterEncoding = JSONEncoding.default, headers: HTTPHeaders? = nil) async throws -> T {
         let url = "\(BASE_URL)\(endpoint)"
         
         return try await withCheckedThrowingContinuation { continuation in
-            ClaudeAF.request(url, method: method, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
+            ClaudeAF.request(url, method: method, parameters: parameters, encoding: encoding, headers: headers)
                 .validate()
                 .responseDecodable(of: T.self) { response in
                     switch response.result {
@@ -50,8 +50,8 @@ public class API: ObservableObject {
         }
     }
     
-    static func orgRequest<T: Decodable>(_ endpoint: String, _ orgId: String, method: HTTPMethod = .get, parameters: Parameters? = nil, headers: HTTPHeaders? = nil) async throws -> T {
-        try await self.request("/organizations/\(orgId)/\(endpoint)", method: method, parameters: parameters, headers: headers)
+    static func orgRequest<T: Decodable>(_ endpoint: String, _ orgId: String, method: HTTPMethod = .get, parameters: Parameters? = nil, encoding: ParameterEncoding = JSONEncoding.default, headers: HTTPHeaders? = nil) async throws -> T {
+        try await self.request("/organizations/\(orgId)/\(endpoint)", method: method, parameters: parameters, encoding: encoding, headers: headers)
     }
     
     public func getAccount() async throws -> ClaudeAccount {
@@ -59,7 +59,11 @@ public class API: ObservableObject {
     }
     
     public func getConversations(starred: Bool = false, limit: Int = 30, consistency: String = "strong") async throws -> [ClaudeConversation] {
-        try await API.orgRequest("chat_conversations?starred=\(starred)&limit=\(limit)&consistency=\(consistency)", self.organisationId ?? "")
+        try await API.orgRequest("chat_conversations", self.organisationId ?? "", parameters: [
+            "starred": starred,
+            "limit": limit,
+            "consistency": consistency
+        ], encoding: URLEncoding(destination: .queryString))
     }
     
 }
