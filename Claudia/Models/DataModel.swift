@@ -24,6 +24,11 @@ class DataModel: ObservableObject {
     @Published var activeConversation: ClaudeConversation?
     @Published var imageOverlay: ImageOverlayState?
     
+    /// Pagination state for the conversation list.
+    @Published var isLoadingMoreConversations = false
+    var hasMoreConversations = true
+    private let conversationPageSize = 30
+    
     var conversationCache: [String: ClaudeConversation] = [:]
     
     /// Invalidates cache entries whose `updatedAt` is older than the list response.

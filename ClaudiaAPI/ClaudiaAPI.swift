@@ -58,10 +58,11 @@ public class API: ObservableObject {
         try await API.request("/account")
     }
     
-    public func getConversations(starred: Bool = false, limit: Int = 30, consistency: String = "strong") async throws -> [ClaudeConversation] {
+    public func getConversations(starred: Bool = false, limit: Int = 30, offset: Int = 0, consistency: String = "strong") async throws -> [ClaudeConversation] {
         try await API.orgRequest("chat_conversations", self.organisationId ?? "", parameters: [
             "starred": starred,
             "limit": limit,
+            "offset": offset,
             "consistency": consistency
         ], encoding: URLEncoding(destination: .queryString))
     }

@@ -77,8 +77,17 @@ struct ContentView: View {
                                             }
                                         }
                                     )
+                                    .transition(.opacity)
+                                    .onAppear {
+                                        guard dataModel.hasMoreConversations,
+                                              !dataModel.isLoadingMoreConversations,
+                                              conversation.uuid == dataModel.conversations.dropLast(5).last?.uuid
+                                        else { return }
+                                        Task { await loadMoreConversations() }
+                                    }
                                 }
                             }
+                            .animation(.easeIn(duration: 0.25), value: dataModel.conversations.count)
                         }
                         .transparentScrollbars()
                     }
@@ -168,6 +177,24 @@ struct ContentView: View {
         }
         .ignoresSafeArea()
         .enableInjection()
+    }
+    
+    private func loadMoreConversations() async {
+        guard !dataModel.isLoadingMoreConversations, dataModel.hasMoreConversations else { return }
+        dataModel.isLoadingMoreConversations = true
+        defer { dataModel.isLoadingMoreConversations = false }
+        
+        do {
+            let offset = dataModel.conversations.count
+            let more = try await api.getConversations(offset: offset)
+            dataModel.invalidateStaleCacheEntries(from: more)
+            dataModel.conversations.append(contentsOf: more)
+            if more.count < 30 {
+                dataModel.hasMoreConversations = false
+            }
+        } catch {
+            print("Failed to load more conversations: \(error.localizedDescription)")
+        }
     }
 }
 
