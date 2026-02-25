@@ -107,6 +107,7 @@ struct ContentView: View {
             } else {
                 NewChatView(name: dataModel.user?.displayName) {
                     MessageBox(models: ["Sonnet 4.6", "Haiku 4.6", "Opus 4.6"])
+                        .padding(30)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }

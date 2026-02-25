@@ -54,6 +54,7 @@ public struct ConversationView: View {
             .transparentScrollbars()
             
             MessageBox(models: availableModels, placeholder: "Reply...")
+                .padding(.all.subtracting(.top), 30)
                 .frame(maxWidth: 800)
                 .frame(maxWidth: .infinity)
         }
