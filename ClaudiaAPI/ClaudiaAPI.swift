@@ -66,4 +66,13 @@ public class API: ObservableObject {
         ], encoding: URLEncoding(destination: .queryString))
     }
     
+    public func getConversation(_ conversationId: String, tree: Bool = true, renderingMode: String = "messages", renderAllTools: Bool = true, consistency: String = "eventual") async throws -> ClaudeConversation {
+        try await API.orgRequest("chat_conversations/\(conversationId)", self.organisationId ?? "", parameters: [
+            "tree": tree,
+            "rendering_mode": renderingMode,
+            "render_all_tools": renderAllTools,
+            "consistency": consistency
+        ], encoding: URLEncoding(destination: .queryString))
+    }
+    
 }

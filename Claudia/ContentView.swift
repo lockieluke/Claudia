@@ -27,7 +27,9 @@ struct ContentView: View {
             if showSidebar {
                 Sidebar {
                     VStack(spacing: 5) {
-                        SidebarControl("New Chat", icon: .plus)
+                        SidebarControl("New Chat", icon: .plus) {
+                            self.dataModel.activeConversation = nil
+                        }
                         SidebarControl("Search", icon: .magnifyingglass)
                         
                         Divider()
@@ -44,7 +46,16 @@ struct ContentView: View {
                             
                             LazyVStack {
                                 ForEach(dataModel.conversations, id: \.uuid) { conversation in
-                                    ConversationRow(conversation.name)
+                                    ConversationRow(conversation.name) {
+                                        Task {
+                                            do {
+                                                let fullConversation = try await self.api.getConversation(conversation.uuid)
+                                                self.dataModel.activeConversation = fullConversation
+                                            } catch {
+                                                print("Failed to fetch conversation: \(error.localizedDescription)")
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -55,10 +66,15 @@ struct ContentView: View {
                 .transition(.move(edge: .leading))
             }
             
-            NewChatView(name: dataModel.user?.displayName) {
-                MessageBox(models: ["Sonnet 4.6", "Haiku 4.6", "Opus 4.6"])
+            if let activeConversation = dataModel.activeConversation {
+                ConversationView(conversation: activeConversation, models: ["Sonnet 4.6", "Haiku 4.6", "Opus 4.6"])
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else {
+                NewChatView(name: dataModel.user?.displayName) {
+                    MessageBox(models: ["Sonnet 4.6", "Haiku 4.6", "Opus 4.6"])
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .overlay {

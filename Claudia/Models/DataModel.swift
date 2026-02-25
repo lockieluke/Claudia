@@ -12,5 +12,6 @@ class DataModel: ObservableObject {
     
     @Published var conversations: [ClaudeConversation] = []
     @Published var user: ClaudeAccount?
+    @Published var activeConversation: ClaudeConversation?
     
 }

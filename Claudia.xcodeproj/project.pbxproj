@@ -10,7 +10,6 @@
 		B774A9582F4E1A3300C1162D /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = B774A9572F4E1A3300C1162D /* SwiftUIIntrospect */; };
 		B774A95C2F4E225000C1162D /* SwiftyUtils in Frameworks */ = {isa = PBXBuildFile; productRef = B774A95B2F4E225000C1162D /* SwiftyUtils */; };
 		B774A95E2F4E259600C1162D /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = B774A95D2F4E259600C1162D /* Defaults */; };
-		B774A9B72F4E6D9500C1162D /* KeyedCodable in Frameworks */ = {isa = PBXBuildFile; productRef = B774A9B62F4E6D9500C1162D /* KeyedCodable */; };
 		B7DEB88F2F4F220E00152398 /* SVGView in Frameworks */ = {isa = PBXBuildFile; productRef = B7DEB88E2F4F220E00152398 /* SVGView */; };
 		B7DEB8D72F4F41D100152398 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = B7DEB8D62F4F41D100152398 /* SwiftUIIntrospect */; };
 		B7E62AD22F4A2F8F00C71BA8 /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = B7E62AD12F4A2F8F00C71BA8 /* Inject */; };
@@ -173,7 +172,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B774A9B72F4E6D9500C1162D /* KeyedCodable in Frameworks */,
 				B774A95C2F4E225000C1162D /* SwiftyUtils in Frameworks */,
 				B7E62AFB2F4A715400C71BA8 /* Alamofire in Frameworks */,
 			);
@@ -328,7 +326,6 @@
 			packageProductDependencies = (
 				B7E62AFA2F4A715400C71BA8 /* Alamofire */,
 				B774A95B2F4E225000C1162D /* SwiftyUtils */,
-				B774A9B62F4E6D9500C1162D /* KeyedCodable */,
 			);
 			productName = ClaudiaAPI;
 			productReference = B7E62AEE2F4A713100C71BA8 /* ClaudiaAPI.framework */;
@@ -402,7 +399,6 @@
 				B7F77D842F4D35A600BAB622 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
 				B7F77D8D2F4D3A3700BAB622 /* XCRemoteSwiftPackageReference "Defaults" */,
 				B774A9562F4E1A3300C1162D /* XCRemoteSwiftPackageReference "swiftui-introspect" */,
-				B774A9B52F4E6D9500C1162D /* XCRemoteSwiftPackageReference "KeyedCodable" */,
 				B7DEB88D2F4F220E00152398 /* XCRemoteSwiftPackageReference "SVGView" */,
 			);
 			preferredProjectObjectVersion = 77;
@@ -1020,14 +1016,6 @@
 				minimumVersion = 26.0.0;
 			};
 		};
-		B774A9B52F4E6D9500C1162D /* XCRemoteSwiftPackageReference "KeyedCodable" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/dgrzeszczak/KeyedCodable.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.1.2;
-			};
-		};
 		B7DEB88D2F4F220E00152398 /* XCRemoteSwiftPackageReference "SVGView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/exyte/SVGView.git";
@@ -1101,11 +1089,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B7F77D8D2F4D3A3700BAB622 /* XCRemoteSwiftPackageReference "Defaults" */;
 			productName = Defaults;
-		};
-		B774A9B62F4E6D9500C1162D /* KeyedCodable */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B774A9B52F4E6D9500C1162D /* XCRemoteSwiftPackageReference "KeyedCodable" */;
-			productName = KeyedCodable;
 		};
 		B7DEB88E2F4F220E00152398 /* SVGView */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -15,9 +15,11 @@ public struct ConversationRow: View {
     @State private var isClicking = false
     
     private let label: String
+    private var onPress: (() -> Void)?
     
-    public init(_ label: String) {
+    public init(_ label: String, onPress: (() -> Void)? = nil) {
         self.label = label
+        self.onPress = onPress
     }
     
     public var body: some View {
@@ -40,6 +42,7 @@ public struct ConversationRow: View {
                 }
                 .onEnded { _ in
                     self.isClicking = false
+                    self.onPress?()
                 }
         )
         .background {

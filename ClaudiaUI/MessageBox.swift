@@ -19,10 +19,12 @@ public struct MessageBox: View {
     
     private let messageBoxRadius = 15.0
     private let availableModels: [String]
+    private let placeholder: String
     
-    public init(models: [String]) {
+    public init(models: [String], placeholder: String = "How can I help you today?") {
         self.availableModels = models
         self.selectedModel = models.first ?? ""
+        self.placeholder = placeholder
     }
     
     public var body: some View {
@@ -34,7 +36,7 @@ public struct MessageBox: View {
                 .introspect(.textField, on: .macOS(.v10_15...)) { textField in
                     let attrs = [NSAttributedString.Key.foregroundColor: NSColor.gray.withAlphaComponent(0.8),
                                  NSAttributedString.Key.font: NSFont(name: "Anthropic Sans Web Text", size: 14)]
-                    let placeholderString = NSAttributedString(string: "How can I help you today?", attributes: attrs)
+                    let placeholderString = NSAttributedString(string: placeholder, attributes: attrs)
                     (textField.cell as? NSTextFieldCell)?.placeholderAttributedString = placeholderString
 
                 }
