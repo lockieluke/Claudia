@@ -16,9 +16,11 @@ public struct ConversationRow: View {
     
     private let label: String
     private var onPress: (() -> Void)?
+    private var onHoverStart: (() -> Void)?
     
-    public init(_ label: String, onPress: (() -> Void)? = nil) {
+    public init(_ label: String, onHoverStart: (() -> Void)? = nil, onPress: (() -> Void)? = nil) {
         self.label = label
+        self.onHoverStart = onHoverStart
         self.onPress = onPress
     }
     
@@ -34,6 +36,9 @@ public struct ConversationRow: View {
         .frame(height: 30)
         .onHover { isHovering in
             self.isHovering = isHovering
+            if isHovering {
+                self.onHoverStart?()
+            }
         }
         .gesture(
             DragGesture(minimumDistance: 0)

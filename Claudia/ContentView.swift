@@ -46,16 +46,31 @@ struct ContentView: View {
                             
                             LazyVStack {
                                 ForEach(dataModel.conversations, id: \.uuid) { conversation in
-                                    ConversationRow(conversation.name) {
+                                    ConversationRow(conversation.name, onHoverStart: {
+                                        guard dataModel.conversationCache[conversation.uuid] == nil else { return }
                                         Task {
                                             do {
                                                 let fullConversation = try await self.api.getConversation(conversation.uuid)
-                                                self.dataModel.activeConversation = fullConversation
+                                                self.dataModel.conversationCache[conversation.uuid] = fullConversation
                                             } catch {
-                                                print("Failed to fetch conversation: \(error.localizedDescription)")
+                                                print("Failed to prefetch conversation: \(error.localizedDescription)")
                                             }
                                         }
-                                    }
+                                    }, onPress: {
+                                        if let cached = dataModel.conversationCache[conversation.uuid] {
+                                            self.dataModel.activeConversation = cached
+                                        } else {
+                                            Task {
+                                                do {
+                                                    let fullConversation = try await self.api.getConversation(conversation.uuid)
+                                                    self.dataModel.conversationCache[conversation.uuid] = fullConversation
+                                                    self.dataModel.activeConversation = fullConversation
+                                                } catch {
+                                                    print("Failed to fetch conversation: \(error.localizedDescription)")
+                                                }
+                                            }
+                                        }
+                                    })
                                 }
                             }
                         }
@@ -109,6 +124,7 @@ struct ContentView: View {
                 
                 let (account, conversations) = try await (accountProc, conversationsProc)
                 self.dataModel.user = account
+                self.dataModel.invalidateStaleCacheEntries(from: conversations)
                 self.dataModel.conversations = conversations
             } catch {
                 print("Failed to fetch initial data: \(error.localizedDescription)")
