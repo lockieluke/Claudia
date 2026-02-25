@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AppKit
 
 public struct HeaderBar: View {
     
@@ -39,6 +40,7 @@ public struct HeaderBar: View {
             Spacer()
         }
         .padding(.vertical)
+        .background(WindowDragArea())
         .enableInjection()
     }
 }
