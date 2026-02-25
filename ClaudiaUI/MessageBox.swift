@@ -12,6 +12,8 @@ public struct MessageBox: View {
     
     @ObserveInjection private var inject
     
+    @Environment(\.colorScheme) private var colorScheme
+    
     @State private var text: String = ""
     @State private var selectedModel: String = ""
     
@@ -55,13 +57,13 @@ public struct MessageBox: View {
                     
                 } label: {
                     Image(systemSymbol: .arrowUp)
-                        .foregroundStyle(.white)
+                        .foregroundStyle(text.isEmpty ? .gray.opacity(0.7) : .white)
                         .padding(7)
                 }
                 .buttonStyle(.plain)
                 .background {
                     RoundedRectangle(cornerRadius: 5)
-                        .fill(text.isEmpty ? Color(hex: "E4B1A0") : Color(hex: "C66240"))
+                        .fill(text.isEmpty ? (colorScheme == .dark ? Color(hex: "804937") : Color(hex: "E4B1A0")) : Color(hex: "C66240"))
                 }
             }
             .padding()
@@ -69,7 +71,7 @@ public struct MessageBox: View {
         .frame(maxWidth: 600)
         .background {
             RoundedRectangle(cornerRadius: messageBoxRadius)
-                .fill(.white)
+                .fill(colorScheme == .dark ? Color(hex: "30302E") : .white)
         }
         .overlay {
             RoundedRectangle(cornerRadius: messageBoxRadius)
