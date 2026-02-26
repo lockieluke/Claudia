@@ -8,8 +8,6 @@
 import AppKit
 import SwiftUI
 
-/// Shows a confirmation alert before opening an external URL.
-/// Shared between `SelectableTextView` (AppKit path) and `MarkdownLatexView` (SwiftUI path).
 func confirmOpen(url: URL, in window: NSWindow?) {
     let alert = NSAlert()
     alert.messageText = "Open external link?"
@@ -31,7 +29,6 @@ func confirmOpen(url: URL, in window: NSWindow?) {
     }
 }
 
-/// SwiftUI `OpenURLAction` that routes through the confirmation dialog.
 struct ConfirmingOpenURLAction: ViewModifier {
     func body(content: Content) -> some View {
         content.environment(\.openURL, OpenURLAction { url in

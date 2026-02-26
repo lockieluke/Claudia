@@ -11,8 +11,6 @@ import SDWebImageSwiftUI
 import SDWebImage
 internal import UniformTypeIdentifiers
 
-/// Fullscreen overlay for viewing an image with a dark backdrop.
-/// The image transitions from its thumbnail position using matchedGeometryEffect.
 public struct ImageOverlayView: View {
     
     let imageURL: URL

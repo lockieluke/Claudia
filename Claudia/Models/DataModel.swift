@@ -9,11 +9,9 @@ import Combine
 import Foundation
 import ClaudiaAPI
 
-/// State for the fullscreen image overlay.
 struct ImageOverlayState {
     let imageURL: URL
     let fileName: String
-    /// Stable ID matching the `matchedGeometryEffect` id on the source thumbnail.
     let imageID: String
 }
 
@@ -24,15 +22,12 @@ class DataModel: ObservableObject {
     @Published var activeConversation: ClaudeConversation?
     @Published var imageOverlay: ImageOverlayState?
     
-    /// Pagination state for the conversation list.
     @Published var isLoadingMoreConversations = false
     var hasMoreConversations = true
     private let conversationPageSize = 30
     
     var conversationCache: [String: ClaudeConversation] = [:]
     
-    /// Invalidates cache entries whose `updatedAt` is older than the list response.
-    /// Call this after fetching the conversation list.
     func invalidateStaleCacheEntries(from freshList: [ClaudeConversation]) {
         for conversation in freshList {
             guard let cachedConversation = conversationCache[conversation.uuid] else { continue }
@@ -49,8 +44,6 @@ class DataModel: ObservableObject {
         }
     }
     
-    /// Invalidates a single conversation's cache entry.
-    /// Call this after sending a message in a conversation.
     func invalidateCacheEntry(for conversationId: String) {
         conversationCache.removeValue(forKey: conversationId)
     }

@@ -78,7 +78,6 @@ public struct ClaudeMessage: Decodable {
         case files = "files_v2"
     }
     
-    /// Returns only image file attachments.
     public var imageFiles: [ClaudeFile] {
         (files ?? []).filter { $0.fileKind == "image" }
     }

@@ -75,7 +75,6 @@ struct MessageBubble: View {
     private static let displaySize = 16.0
     private static let displayLineHeight = 24.0
     
-    /// Cached SVG string — parsed once from the asset catalog.
     private static let sparkleSVG: String = {
         String(data: NSDataAsset(name: "Claude", bundle: .main)!.data, encoding: .utf8)!
     }()

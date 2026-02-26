@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-/// A wrapping flow layout that places inline content on the same line,
-/// breaking to the next line when the available width is exceeded.
 struct FlowLayout: Layout {
     
     var spacing: CGFloat = 4

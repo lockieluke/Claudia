@@ -9,9 +9,6 @@ import SwiftUI
 internal import SwiftUIMath
 import AppKit
 
-/// Represents a run of consecutive blocks that can be rendered together.
-/// Consecutive pure-text paragraphs are merged into a single `SelectableTextView`
-/// so that text selection works across paragraph boundaries.
 private enum RenderGroup: Identifiable {
     case textRun(id: String, markdown: String)
     case mathParagraph(id: String, inlines: [InlineSegment])
@@ -34,7 +31,6 @@ private enum RenderGroup: Identifiable {
     }
 }
 
-/// Groups consecutive pure-text paragraphs into single text runs for unified selection.
 private func groupBlocks(_ blocks: [BlockSegment]) -> [RenderGroup] {
     var groups: [RenderGroup] = []
     var pendingTexts: [String] = []
@@ -158,7 +154,6 @@ public struct MarkdownLatexView: View {
     }
 }
 
-/// Renders a run of pure-text markdown paragraphs.
 private struct TextRunView: View {
     let markdown: String
     let fontSize: CGFloat
@@ -173,7 +168,6 @@ private struct TextRunView: View {
     }
 }
 
-/// Renders a markdown heading at the appropriate size.
 private struct HeadingView: View {
     let text: String
     let level: Int
@@ -195,8 +189,6 @@ private struct HeadingView: View {
     }
 }
 
-/// Renders a fenced code block with a dark/light background, optional language label,
-/// and selectable monospaced text.
 private struct CodeBlockView: View {
     let code: String
     let language: String?
@@ -241,7 +233,6 @@ private struct CodeBlockView: View {
     }
 }
 
-/// Renders a list of items with bullets or numbers, supporting nesting.
 private struct ListBlockView: View {
     let items: [ListItem]
     let fontSize: CGFloat
@@ -257,7 +248,6 @@ private struct ListBlockView: View {
     }
 }
 
-/// Renders a single list item row with the bullet baked into the attributed string.
 private struct ListItemView: View {
     let item: ListItem
     let fontSize: CGFloat

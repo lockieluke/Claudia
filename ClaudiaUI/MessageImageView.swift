@@ -9,8 +9,6 @@ import SwiftUI
 import SDWebImageSwiftUI
 import ClaudiaAPI
 
-/// Displays a thumbnail image for a file attachment in a message bubble.
-/// Uses SDWebImage for async loading and caching.
 public struct MessageImageView: View {
     
     private let file: ClaudeFile
@@ -59,7 +57,6 @@ public struct MessageImageView: View {
     }
 }
 
-/// Cursor modifier for macOS
 private struct CursorModifier: ViewModifier {
     let cursor: NSCursor
     

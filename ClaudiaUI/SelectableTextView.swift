@@ -8,8 +8,6 @@
 import SwiftUI
 import AppKit
 
-/// A non-scrollable `NSTextView` subclass that reports its intrinsic size
-/// based on the laid-out text, so SwiftUI can size it correctly.
 final class AutoSizingTextView: NSTextView {
     
     override var intrinsicContentSize: NSSize {
@@ -35,8 +33,6 @@ final class AutoSizingTextView: NSTextView {
     }
 }
 
-/// An `NSViewRepresentable` wrapping a read-only `NSTextView` that supports
-/// native multi-line text selection and automatic height sizing.
 struct SelectableTextView: NSViewRepresentable {
     
     let attributedString: NSAttributedString
@@ -93,8 +89,6 @@ struct SelectableTextView: NSViewRepresentable {
     }
 }
 
-/// Converts a markdown string to an `NSAttributedString` using the system
-/// markdown parser, applying the specified font and line height.
 func markdownAttributedString(_ markdown: String, font: NSFont, lineHeight: CGFloat, colorScheme: ColorScheme) -> NSAttributedString {
     let paragraphStyle = NSMutableParagraphStyle()
     paragraphStyle.minimumLineHeight = lineHeight

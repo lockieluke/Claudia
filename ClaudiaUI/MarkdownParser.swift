@@ -19,7 +19,6 @@ enum InlineSegment: Identifiable {
     }
 }
 
-/// A single item in a list (may contain inline markdown).
 struct ListItem: Identifiable {
     let id = UUID()
     let text: String
@@ -48,11 +47,6 @@ enum BlockSegment: Identifiable {
     }
 }
 
-/// Parses a string containing mixed markdown and LaTeX into block-level segments.
-///
-/// Block-level constructs (headings, code fences, horizontal rules) are extracted
-/// first by a line-based pre-pass. Remaining paragraph text is then scanned for
-/// inline/display math delimiters.
 func parseContent(_ text: String) -> [BlockSegment] {
     // Phase 1: line-based extraction of block constructs
     let rawBlocks = extractBlocks(from: text)
@@ -80,8 +74,6 @@ func parseContent(_ text: String) -> [BlockSegment] {
 
 // MARK: - Phase 1: Block-level extraction
 
-/// Splits raw text into block-level segments by recognising fenced code blocks,
-/// headings, and horizontal rules. Everything else is grouped as paragraph text.
 private func extractBlocks(from text: String) -> [BlockSegment] {
     let lines = text.components(separatedBy: "\n")
     var blocks: [BlockSegment] = []
@@ -174,8 +166,6 @@ private func extractBlocks(from text: String) -> [BlockSegment] {
 
 // MARK: - Phase 2: Inline math parsing within paragraphs
 
-/// Parses a paragraph string for display and inline math, splitting into
-/// appropriate `BlockSegment` entries.
 private func parseInlineMath(_ text: String) -> [BlockSegment] {
     let delimiters: [(open: String, close: String, type: String)] = [
         ("\\[", "\\]", "display"),
@@ -325,7 +315,6 @@ private func isHorizontalRule(_ line: String) -> Bool {
     return regex.firstMatch(in: line, range: NSRange(line.startIndex..., in: line)) != nil
 }
 
-/// Thread-safe cache for parsed block segments, keyed by message text.
 final class ParsedBlocksCache {
     static let shared = ParsedBlocksCache()
     
@@ -346,7 +335,6 @@ final class ParsedBlocksCache {
     }
 }
 
-/// NSCache requires reference-type values.
 private final class CachedBlocks {
     let blocks: [BlockSegment]
     init(blocks: [BlockSegment]) { self.blocks = blocks }
